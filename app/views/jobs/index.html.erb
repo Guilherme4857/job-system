@@ -1,0 +1,7 @@
+<%@jobs.each do |job| %>
+  <P>
+  <div>Título: <%= job.title%></div>
+  <div>Nível: <%= job.level%></div>
+  <div>Data limite: <%= job.expiration_date%></div>
+  </P>
+<% end %>
