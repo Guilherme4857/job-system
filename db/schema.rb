@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_10_192047) do
+ActiveRecord::Schema.define(version: 2021_02_11_102347) do
 
   create_table "jobs", force: :cascade do |t|
     t.string "title"
@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2021_02_10_192047) do
     t.string "pay_scale"
     t.string "level"
     t.string "requirements"
-    t.string "expiration_date"
+    t.date "expiration_date"
     t.integer "job_openings"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

@@ -6,7 +6,7 @@ class CreateJobs < ActiveRecord::Migration[6.1]
       t.string :pay_scale
       t.string :level
       t.string :requirements
-      t.string :expiration_date
+      t.date :expiration_date
       t.integer :job_openings
 
       t.timestamps

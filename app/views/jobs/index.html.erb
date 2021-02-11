@@ -1,7 +1,16 @@
+<h1>Vagas Abertas</h1> 
+
+<%if @jobs%>
+  <h2>Sem anúncio de vaga</h2>
+<%end%>
+
 <%@jobs.each do |job| %>
   <P>
-  <div>Título: <%= job.title%></div>
+  <h3><%= job.title%></h3>
   <div>Nível: <%= job.level%></div>
+  <div>Requisitos obrigatórios: <%=job.requirements%></div>
   <div>Data limite: <%= job.expiration_date%></div>
   </P>
 <% end %>
+
+<div><%=link_to 'Anuncie sua vaga', new_job_path%></div>

@@ -1,0 +1,15 @@
+pt-BR:
+  activerecord:    
+    models:
+      job:
+        one: Emprego
+        other: Empregos   
+    attributes:
+      job:
+        title: Título
+        description: Descrição Detalhada
+        pay_scale: Faixa Salarial
+        level: Nível
+        requirements: Requisitos Obrigatórios
+        expiration_date: Data Limite
+        job_openings: Total de Vagas

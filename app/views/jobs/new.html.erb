@@ -1,0 +1,35 @@
+<h1>
+Preencha todos os campos a seguir
+</h1>
+
+<%=form_with model: @job do |f|%>
+  <div>
+  <%=f.label :title%>
+  <%=f.text_field :title%>
+  </div>
+  <div>
+  <%=f.label :description%>
+  <%=f.text_field :description%>
+  </div>
+  <div>
+  <%=f.label :pay_scale%>
+  <%=f.text_field :pay_scale%>
+  </div>
+  <div>
+  <%=f.label :level%>
+  <%=f.text_field :level%>
+  </div>
+  <div>
+  <%=f.label :requirements%>
+  <%=f.text_field :requirements%>
+  </div>
+  <div>
+  <%=f.label :expiration_date%>
+  <%=f.text_field :expiration_date%>
+  </div>
+  <div>
+  <%=f.label :job_openings%>
+  <%=f.text_field :job_openings%>
+  </div>
+  <p><%=f.submit 'Criar Vaga'%></p>
+<%end%>

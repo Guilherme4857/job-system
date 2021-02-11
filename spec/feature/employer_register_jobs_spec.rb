@@ -1,0 +1,39 @@
+require 'rails_helper'
+
+feature 'Employer register jobs' do
+  scenario 'from root path' do
+
+    visit root_path
+    click_on 'Vagas de emprego'
+    click_on 'Anuncie sua vaga'
+
+    expect(current_path).to eq new_job_path
+    within('h1'){expect(page).to have_content "Preencha todos os campos a seguir"}
+  end
+
+  scenario 'successfully' do
+    job = {title: 'Desenvolvedor Ruby', description: 'Vai desenvolver aplicações utilizando ruby',
+          pay_scale: 'R$2000 - R$2600' ,level: 'Junior', requirements: 'Saber ruby',
+          expiration_date: '23/04/2024',job_openings: 4}
+
+    visit new_job_path
+
+    fill_in 'Título', with: job[:title]
+    fill_in 'Descrição Detalhada', with: job[:description]
+    fill_in 'Faixa Salarial', with: job[:pay_scale]
+    fill_in 'Nível', with: job[:level]
+    fill_in 'Requisitos Obrigatórios', with: job[:requirements]
+    fill_in 'Data Limite', with: job[:expiration_date]
+    fill_in 'Total de Vagas', with: job[:job_openings]
+    click_on 'Criar Vaga'
+  
+    expect(current_path).to eq job_path(Job.last)
+    within('h1'){expect(page).to have_content 'Desenvolvedor Ruby'}
+    expect(page).to have_content "Descrição Detalhada: Vai desenvolver aplicações utilizando ruby"
+    expect(page).to have_content "Nível: Junior"
+    expect(page).to have_content "Requisitos Obrigatórios: Saber ruby"
+    expect(page).to have_content "Total de Vagas: 4"
+    expect(page).to have_content "Data Limite: 23/04/2024"
+    expect(page).to have_content "Faixa Salarial: R$2000 - R$2600"
+  end
+end
