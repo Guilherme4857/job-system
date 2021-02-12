@@ -2,16 +2,14 @@
 <%=@job.title%>
 </h1>
 <p>
-<div>
-<%=Job.human_attribute_name("job.description")%>: <%=@job.description%>
-<%=Job.human_attribute_name("job.level")%>: <%=@job.level%>
-</div>
-<div>
-<%=Job.human_attribute_name("job.requirements")%>: <%=@job.requirements%>
-<%=Job.human_attribute_name("job.job_openings")%>: <%=@job.job_openings%>
-</div>
-<div>
-<%=Job.human_attribute_name("job.expiration_date")%>: <%=localize @job.expiration_date%>
-<%=Job.human_attribute_name("job.pay_scale")%>: <%=@job.pay_scale%>
-</div>
+<div><%=@job_attributes[0]%>: <%=@job.description%></div>
+<div><%=@job_attributes[1]%>: <%=@job.level%></div>
+<div><%=@job_attributes[2]%>: <%=@job.requirements%>
+<div><%=@job_attributes[3]%>: <%=@job.job_openings%></div>
+<div><%=@job_attributes[4]%>: <%=localize @job.expiration_date%></div>
+<div><%=@job_attributes[5]%>: <%=@job.pay_scale%></div>
+</p>
+
+<p>
+<div><%=link_to 'Voltar', jobs_path%></div>
 </p>

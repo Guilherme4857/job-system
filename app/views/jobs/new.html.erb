@@ -2,6 +2,12 @@
 Preencha todos os campos a seguir
 </h1>
 
+<%if @job.errors.any?%>
+  <%@job.errors.each do |error|%>
+    <dt><%=error.full_message%></dt>
+  <%end%>
+<%end%>
+
 <%=form_with model: @job do |f|%>
   <div>
   <%=f.label :title%>
@@ -33,3 +39,5 @@ Preencha todos os campos a seguir
   </div>
   <p><%=f.submit 'Criar Vaga'%></p>
 <%end%>
+
+<div><%=link_to 'Voltar', jobs_path%></div>

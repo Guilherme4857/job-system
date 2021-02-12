@@ -19,11 +19,12 @@ feature 'Visitor see app' do
 
     expect(current_path).to eq jobs_path
     within('h1'){expect(page).to have_content "Vagas Abertas"}
-    within('h3'){expect(page).to have_content job.title}
-    expect(page).to have_content "Nível: #{job.level}"
-    expect(page).to have_content "Requisitos obrigatórios: #{job.requirements}"
-    expect(page).to have_content "Data limite: #{job.expiration_date}"
-    expect(page).to have_link 'Anuncie sua vaga'
+    within('h3'){expect(page).to have_link 'Desenvolvedor Ruby', href: job_path(job)}
+    expect(page).to have_content "Nível: Junior"
+    expect(page).to have_content "Requisitos Obrigatórios: Saber ruby"
+    expect(page).to have_content "Data Limite: 23/04/2024"
+    expect(page).to have_link 'Anuncie sua vaga', href: new_job_path
+    expect(page).to have_link  'Voltar', href: root_path
   end
 
   scenario 'without registered job' do
@@ -31,6 +32,7 @@ feature 'Visitor see app' do
     visit jobs_path
 
     within('h2'){expect(page).to have_content 'Sem anúncio de vaga'}
-    expect(page).to have_link 'Anuncie sua vaga'
+    expect(page).to have_link 'Anuncie sua vaga', href: new_job_path
+    expect(page).to have_link  'Voltar', href: root_path    
   end
 end

@@ -6,11 +6,16 @@
 
 <%@jobs.each do |job| %>
   <P>
-  <h3><%= job.title%></h3>
-  <div>Nível: <%= job.level%></div>
-  <div>Requisitos obrigatórios: <%=job.requirements%></div>
-  <div>Data limite: <%= job.expiration_date%></div>
+  <h3><%=link_to job.title, job_path(job)%> (ver detalhes)</h3> 
+  <div><%=@job_attributes[1]%>: <%= job.level%></div>
+  <div><%=@job_attributes[2]%>: <%=job.requirements%></div>
+  <div><%=@job_attributes[4]%>: <%= localize job.expiration_date%></div>
   </P>
+  <hr>
 <% end %>
 
 <div><%=link_to 'Anuncie sua vaga', new_job_path%></div>
+
+<p>
+<div><%=link_to 'Voltar', root_path%></div>
+</p>

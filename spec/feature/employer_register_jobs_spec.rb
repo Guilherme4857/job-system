@@ -27,7 +27,7 @@ feature 'Employer register jobs' do
     fill_in 'Total de Vagas', with: job[:job_openings]
     click_on 'Criar Vaga'
   
-    expect(current_path).to eq job_path(Job.last)
+    expect(current_path).to eq job_path Job.last
     within('h1'){expect(page).to have_content 'Desenvolvedor Ruby'}
     expect(page).to have_content "Descrição Detalhada: Vai desenvolver aplicações utilizando ruby"
     expect(page).to have_content "Nível: Junior"
@@ -35,5 +35,30 @@ feature 'Employer register jobs' do
     expect(page).to have_content "Total de Vagas: 4"
     expect(page).to have_content "Data Limite: 23/04/2024"
     expect(page).to have_content "Faixa Salarial: R$2000 - R$2600"
+    expect(page).to have_link "Voltar", href: jobs_path
+  end
+
+  scenario 'and must fill all gaps' do
+    visit new_job_path
+
+    fill_in 'Título', with: ''
+    fill_in 'Descrição Detalhada', with: ''
+    fill_in 'Faixa Salarial', with: ''
+    fill_in 'Nível', with: ''
+    fill_in 'Requisitos Obrigatórios', with: ''
+    fill_in 'Data Limite', with: ''
+    fill_in 'Total de Vagas', with: ''
+    click_on 'Criar Vaga'
+
+    expect(current_path).to eq jobs_path
+    expect(page).to have_content 'Título não pode ficar em branco'
+    expect(page).to have_content "Descrição Detalhada não pode ficar em branco"
+    expect(page).to have_content "Nível não pode ficar em branco"
+    expect(page).to have_content "Requisitos Obrigatórios não pode ficar em branco"
+    expect(page).to have_content "Total de Vagas não pode ficar em branco"
+    expect(page).to have_content "Data Limite não pode ficar em branco"
+    expect(page).to have_content "Faixa Salarial não pode ficar em branco"
+    expect(page).to have_link "Voltar", href: jobs_path
+ 
   end
 end
