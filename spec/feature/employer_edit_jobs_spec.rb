@@ -12,7 +12,7 @@ feature 'Employer edit jobs' do
     click_on job.title
     click_on 'Editar Vaga'
 
-    expect(current_path).to eq edit_job_path
+    expect(current_path).to eq edit_job_path job
   end
 
   scenario 'successfully' do
@@ -36,7 +36,7 @@ feature 'Employer edit jobs' do
     fill_in 'Requisitos Obrigatórios', with: edited_job[:requirements]
     fill_in 'Data Limite', with: edited_job[:expiration_date]
     fill_in 'Total de Vagas', with: edited_job[:job_openings]
-    click_on 'Criar Vaga'
+    click_on 'Atualizar Vaga'
 
     expect(current_path).to eq job_path Job.last
     within('h1'){expect(page).to have_content 'Desenvolvedor Ruby'}
@@ -46,7 +46,7 @@ feature 'Employer edit jobs' do
     expect(page).to have_content "Total de Vagas: 4"
     expect(page).to have_content "Data Limite: 23/04/2024"
     expect(page).to have_content "Faixa Salarial: R$2000 - R$2600"
-
+    expect(page).to have_link "Voltar", href: jobs_path
   end
 
   scenario "and can't let blank gaps" do
@@ -64,9 +64,9 @@ feature 'Employer edit jobs' do
     fill_in 'Requisitos Obrigatórios', with: ''
     fill_in 'Data Limite', with: ''
     fill_in 'Total de Vagas', with: ''
-    click_on 'Criar Vaga'
+    click_on 'Atualizar Vaga'
 
-    expect(current_path).to eq jobs_path
+    expect(current_path).to eq job_path(job)
     expect(page).to have_content 'Título não pode ficar em branco'
     expect(page).to have_content "Descrição Detalhada não pode ficar em branco"
     expect(page).to have_content "Nível não pode ficar em branco"
@@ -74,6 +74,6 @@ feature 'Employer edit jobs' do
     expect(page).to have_content "Total de Vagas não pode ficar em branco"
     expect(page).to have_content "Data Limite não pode ficar em branco"
     expect(page).to have_content "Faixa Salarial não pode ficar em branco"
-    expect(page).to have_link "Voltar", href: jobs_path
+    expect(page).to have_link "Voltar", href: job_path(job)
   end
 end

@@ -1,9 +1,6 @@
 class JobsController < ApplicationController
   def index
     @jobs = Job.all
-    @job_attributes = [Job.human_attribute_name("job.description"), Job.human_attribute_name("job.level"),
-                       Job.human_attribute_name("job.requirements"), Job.human_attribute_name("job.job_openings"),
-                       Job.human_attribute_name("job.expiration_date"), Job.human_attribute_name("job.pay_scale")]
   end
 
   def new
@@ -24,8 +21,21 @@ class JobsController < ApplicationController
 
   def show
     @job = Job.find(params[:id])
-    @job_attributes = [Job.human_attribute_name("job.description"), Job.human_attribute_name("job.level"),
-                       Job.human_attribute_name("job.requirements"), Job.human_attribute_name("job.job_openings"),
-                       Job.human_attribute_name("job.expiration_date"), Job.human_attribute_name("job.pay_scale")]
+  end
+
+  def edit
+    @job = Job.find(params[:id])
+  end
+
+  def update
+    @job = Job.find(params[:id])
+    edited_job = params.require(:job).permit(:title, :description, :pay_scale, 
+                                       :level, :requirements, :expiration_date, 
+                                       :job_openings)
+    if @job.update(edited_job)
+      redirect_to @job
+    else
+      render :edit
+    end
   end
 end

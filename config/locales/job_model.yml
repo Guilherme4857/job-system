@@ -2,8 +2,8 @@ pt-BR:
   activerecord:    
     models:
       job:
-        one: Emprego
-        other: Empregos   
+        one: Vaga
+        other: Vagas   
     attributes:
       job:
         title: Título

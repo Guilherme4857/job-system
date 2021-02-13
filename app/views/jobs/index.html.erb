@@ -7,9 +7,9 @@
 <%@jobs.each do |job| %>
   <P>
   <h3><%=link_to job.title, job_path(job)%> (ver detalhes)</h3> 
-  <div><%=@job_attributes[1]%>: <%= job.level%></div>
-  <div><%=@job_attributes[2]%>: <%=job.requirements%></div>
-  <div><%=@job_attributes[4]%>: <%= localize job.expiration_date%></div>
+  <div><%=job.job_attributes(3)%>: <%= job.level%></div>
+  <div><%=job.job_attributes(4)%>: <%=job.requirements%></div>
+  <div><%=job.job_attributes(5)%>: <%= localize job.expiration_date%></div>
   </P>
   <hr>
 <% end %>
