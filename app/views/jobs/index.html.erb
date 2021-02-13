@@ -1,8 +1,14 @@
 <h1>Vagas Abertas</h1> 
-
-<%if @jobs%>
-  <h2>Sem anúncio de vaga</h2>
+<h2>
+<%flash.each do |msg|%>
+  <div><%=msg%></div>
 <%end%>
+<%if @jobs%>
+<div> Sem anúncio de vaga <div>
+<%end%>
+
+</h2>
+
 
 <%@jobs.each do |job| %>
   <P>

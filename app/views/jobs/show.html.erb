@@ -8,7 +8,10 @@
 <div><%=@job.job_attributes(6)%>: <%=@job.job_openings%></div>
 <div><%=@job.job_attributes(5)%>: <%=localize @job.expiration_date%></div>
 <div><%=@job.job_attributes(2)%>: <%=@job.pay_scale%></div>
-<div><%=link_to 'Editar Vaga', edit_job_path%></div>
+<div>
+<%=link_to 'Editar Vaga', edit_job_path%> 
+<%=button_to 'Deletar Vaga', job_path, method: :delete, 
+data: {confirm: 'Tem certeza que quer apagar a vaga ?'}%></div>
 </p>
 
 <p>
