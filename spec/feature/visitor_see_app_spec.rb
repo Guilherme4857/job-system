@@ -5,7 +5,7 @@ feature 'Visitor see app' do
     visit root_path
 
     within('h1'){expect(page).to have_content 'Balcão de Empregos'}
-    within('p'){expect(page).to have_link 'Vagas de emprego'}
+    expect(page).to have_link 'Vagas de emprego'
   end
 
   scenario 'successfully' do
