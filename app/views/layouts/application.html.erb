@@ -11,6 +11,14 @@
   </head>
  
   <body>
+    <nav class= 'navigation' id='principal'>
+      <%if employee_signed_in?%>
+        <%= current_employee.email%>
+        <%=link_to 'Sair', destroy_employee_session_path, method: :delete%>
+      <%else%>
+        <%=link_to 'Entrar como funcionário de empresa', new_employee_session_path%>
+      <%end%>
+    </nav>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
     <%= yield %>

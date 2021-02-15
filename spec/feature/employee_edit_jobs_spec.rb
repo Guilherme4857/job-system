@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 feature 'Employer edit jobs' do
-  scenario 'from root path' do
+  scenario 'must be signed in' do
     job = Job.create!(title: 'Desenvolvedor Ruby',
                       description: 'Vai desenvolver aplicações utilizando ruby',
                       pay_scale: 'R$2000 - R$2600' ,level: 'Junior',
@@ -12,16 +12,33 @@ feature 'Employer edit jobs' do
     click_on job.title
     click_on 'Editar Vaga'
 
+    expect(current_path).to eq new_employee_session_path
+  end
+
+  scenario 'from root path' do
+    employee = Employee.create!(email: 'joao@campuscode.com', password: '123456')
+    job = Job.create!(title: 'Desenvolvedor Ruby',
+                      description: 'Vai desenvolver aplicações utilizando ruby',
+                      pay_scale: 'R$2000 - R$2600' ,level: 'Junior',
+                      requirements: 'Saber ruby',expiration_date: '23/04/2024',job_openings: 4)
+    login_as employee, scope: :employee
+
+    visit root_path
+    click_on 'Vagas de emprego'
+    click_on job.title
+    click_on 'Editar Vaga'
+
     expect(current_path).to eq edit_job_path job
   end
 
   scenario 'successfully' do
+    employee = Employee.create!(email: 'joao@campuscode.com', password: '123456')
     job = Job.create!(title: 'Desenvolvedor Java',
                       description: 'Vai desenvolver aplicações utilizando java',
                       pay_scale: 'R$2000 - R$2600' ,level: 'Junior',
                       requirements: 'Saber java',expiration_date: '23/04/2024',job_openings: 4)
+    login_as employee, scope: :employee
   
-
     edited_job = {title: 'Desenvolvedor Ruby', description: 'Vai desenvolver 
                   aplicações utilizando ruby', pay_scale: 'R$2000 - R$2600' ,
                   level: 'Junior', requirements: 'Saber ruby', 
@@ -50,10 +67,12 @@ feature 'Employer edit jobs' do
   end
 
   scenario "and can't let blank gaps" do
+    employee = Employee.create!(email: 'joao@campuscode.com', password: '123456')
     job = Job.create!(title: 'Desenvolvedor Java',
                       description: 'Vai desenvolver aplicações utilizando java',
                       pay_scale: 'R$2000 - R$2600' ,level: 'Junior',
                       requirements: 'Saber java',expiration_date: '23/04/2024',job_openings: 4)
+    login_as employee, scope: :employee
  
     visit edit_job_path job
     
