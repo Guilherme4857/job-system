@@ -1,0 +1,11 @@
+pt-BR:
+  activerecord:
+    models:
+      company_address: Endereço da Empresa
+    
+    attributes:
+      company_address:
+        public_place: Rua
+        district: Bairro
+        city: Cidade
+        zip_code: CEP

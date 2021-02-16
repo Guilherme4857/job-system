@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_15_023222) do
+ActiveRecord::Schema.define(version: 2021_02_15_143016) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -42,7 +42,6 @@ ActiveRecord::Schema.define(version: 2021_02_15_023222) do
 
   create_table "companies", force: :cascade do |t|
     t.string "name"
-    t.string "full_address"
     t.string "cnpj"
     t.string "site"
     t.text "company_history"
@@ -50,9 +49,29 @@ ActiveRecord::Schema.define(version: 2021_02_15_023222) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["cnpj"], name: "index_companies_on_cnpj", unique: true
     t.index ["company_history"], name: "index_companies_on_company_history", unique: true
-    t.index ["full_address"], name: "index_companies_on_full_address", unique: true
     t.index ["name"], name: "index_companies_on_name", unique: true
     t.index ["site"], name: "index_companies_on_site", unique: true
+  end
+
+  create_table "company_addresses", force: :cascade do |t|
+    t.integer "company_id", null: false
+    t.string "public_place"
+    t.string "district"
+    t.string "city"
+    t.string "zip_code"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["company_id"], name: "index_company_addresses_on_company_id"
+  end
+
+  create_table "company_employees", force: :cascade do |t|
+    t.integer "company_id", null: false
+    t.integer "employee_id", null: false
+    t.string "hostname"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["company_id"], name: "index_company_employees_on_company_id"
+    t.index ["employee_id"], name: "index_company_employees_on_employee_id"
   end
 
   create_table "company_social_webs", force: :cascade do |t|
@@ -71,8 +90,6 @@ ActiveRecord::Schema.define(version: 2021_02_15_023222) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "company_id", null: false
-    t.index ["company_id"], name: "index_employees_on_company_id"
     t.index ["email"], name: "index_employees_on_email", unique: true
     t.index ["reset_password_token"], name: "index_employees_on_reset_password_token", unique: true
   end
@@ -91,6 +108,8 @@ ActiveRecord::Schema.define(version: 2021_02_15_023222) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "company_addresses", "companies"
+  add_foreign_key "company_employees", "companies"
+  add_foreign_key "company_employees", "employees"
   add_foreign_key "company_social_webs", "companies"
-  add_foreign_key "employees", "companies"
 end

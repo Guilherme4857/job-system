@@ -1,5 +1,4 @@
 class Job < ApplicationRecord
-  enum status: {admin: 10, common: 0} 
   validates :title, :description, :pay_scale, :level, 
             :requirements, :expiration_date, :job_openings, presence: true
 
