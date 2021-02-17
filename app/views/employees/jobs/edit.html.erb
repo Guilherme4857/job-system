@@ -8,7 +8,7 @@ Preencha todos os campos a seguir
   <%end%>
 <%end%>
 
-<%=form_with model: @job do |f|%>
+<%=form_with model: [:employees, @job] do |f|%>
   <div>
   <%=f.label :title%>
   <%=f.text_field :title%>
@@ -37,7 +37,7 @@ Preencha todos os campos a seguir
   <%=f.label :job_openings%>
   <%=f.text_field :job_openings%>
   </div>
-  <p><%=f.submit%></p>
+  <<%=f.submit%>
 <%end%>
 
-<div><%=link_to 'Voltar', job_path(@job)%></div>
+<div><%=link_to 'Voltar', employees_job_path(@job)%></div>

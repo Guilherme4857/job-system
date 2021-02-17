@@ -1,0 +1,8 @@
+pt-BR:
+  activerecord:
+    models:
+      company_social_web: Rede Social
+    
+    attributes:
+      company_social_web:
+        address_web: Site

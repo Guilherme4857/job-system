@@ -1,7 +1,12 @@
 <h1>
 Balcão de Empregos
 </h1>
-
-<p>
-<div><%=link_to 'Vagas de emprego', jobs_path%></div>
-</p>
+<%if employee_signed_in?%>
+  <p>
+  <div><%=link_to 'Vagas de emprego', employees_jobs_path%></div>
+  </p>
+<% else %>
+  <p>
+  <div><%=link_to 'Vagas de emprego', jobs_path%></div>
+  </p>
+<%end%>

@@ -8,6 +8,7 @@ pt-BR:
     attributes:
       company:
         name: Nome
+        company_picture: Logomarca
         cnpj: CNPJ
         site: Site
         company_history: História da Empresa

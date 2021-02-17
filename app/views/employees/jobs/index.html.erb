@@ -1,0 +1,27 @@
+<h1>Vagas Abertas</h1> 
+
+<h2 class="header" id='without'>
+<%flash.each do |msg|%>
+  <div><%=msg%></div>
+<%end%>
+<%if @jobs == []%>
+<div> Sem anúncio de vaga <div>
+<%end%>
+</h2>
+
+<%@jobs.each do |job| %>
+  <div class='divison' id='info'>
+  <p class='Paragraph' id='body'>
+  <h2 class='header' id='Job'><%=link_to job.title, employees_job_path(job)%> (ver detalhes)</h2> 
+  <dt><%=job.job_attributes(3)%>: <%= job.level%></dt>
+  <dt><%=job.job_attributes(4)%>: <%=job.requirements%></dt>
+  <dt><%=job.job_attributes(5)%>: <%= localize job.expiration_date%></dt>
+  </p>
+  <hr>
+  </div>
+<% end %>
+<div><%=link_to 'Anuncie sua vaga', new_employees_job_path%></div>
+
+<p>
+<div><%=link_to 'Voltar', root_path%></div>
+</p>

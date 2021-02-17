@@ -9,6 +9,11 @@ Formulário de Cadastro da Empresa
   </div>
 
   <div>
+  <%=f.label :company_picture%>
+  <%=f.file_field :company_picture%>
+  </div>
+
+  <div>
   <%=f.label :cnpj%>
   <%=f.text_field :cnpj%>
   </div>
@@ -22,8 +27,7 @@ Formulário de Cadastro da Empresa
   <%=f.label :company_history%>
   <%=f.text_field :company_history%>
   </div>
-
-  <%=form.fields_for :company_address do |company_address_form|%>
+  <%=f.fields_for :company_address  do |company_address_form|%>
     <div>
     <%=company_address_form.label :public_place%>
     <%=company_address_form.text_field :public_place%>
@@ -36,7 +40,7 @@ Formulário de Cadastro da Empresa
 
     <div>
     <%=company_address_form.label :city%>
-    <%=company_address_formf.text_field :city%>
+    <%=company_address_form.text_field :city%>
     </div>
 
     <div>
@@ -45,5 +49,14 @@ Formulário de Cadastro da Empresa
     </div>
 
   <%end%>
+  <%n = 0%>
+  <%=f.fields_for :company_social_webs do |company_social_web_form|%>
+    <%n += 1%>
+    <div>
+    <%=company_social_web_form.label :address_web, "Rede Social #{n}"%>
+    <%=company_social_web_form.text_field :address_web%>
+    </div>
+  <%end%>
+
   <div><%=f.submit%></div>
 <%end%>

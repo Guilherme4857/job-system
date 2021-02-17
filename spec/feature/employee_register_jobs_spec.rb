@@ -1,14 +1,6 @@
 require 'rails_helper'
 
 feature 'Employer register jobs' do
-  scenario 'must be signed in' do
-    visit root_path
-    click_on 'Vagas de emprego'
-    click_on 'Anuncie sua vaga'
-
-    expect(current_path).to eq new_employee_session_path
-  end
-
   scenario 'from root path' do
     employee = Employee.create!(email: 'joao@campuscode.com', password: '123456')
     login_as employee, scope: :employee
@@ -17,7 +9,7 @@ feature 'Employer register jobs' do
     click_on 'Vagas de emprego'
     click_on 'Anuncie sua vaga'
 
-    expect(current_path).to eq new_job_path
+    expect(current_path).to eq new_employees_job_path
     within('h1'){expect(page).to have_content "Preencha todos os campos a seguir"}
   end
 
@@ -28,7 +20,7 @@ feature 'Employer register jobs' do
           pay_scale: 'R$2000 - R$2600' ,level: 'Junior', requirements: 'Saber ruby',
           expiration_date: '23/04/2024',job_openings: 4}
 
-    visit new_job_path
+    visit new_employees_job_path
 
     fill_in 'Título', with: job[:title]
     fill_in 'Descrição Detalhada', with: job[:description]
@@ -39,7 +31,7 @@ feature 'Employer register jobs' do
     fill_in 'Total de Vagas', with: job[:job_openings]
     click_on 'Criar Vaga'
   
-    expect(current_path).to eq job_path Job.last
+    expect(current_path).to eq employees_job_path Job.last
     within('h1'){expect(page).to have_content 'Desenvolvedor Ruby'}
     expect(page).to have_content "Descrição Detalhada: Vai desenvolver aplicações utilizando ruby"
     expect(page).to have_content "Nível: Junior"
@@ -47,14 +39,14 @@ feature 'Employer register jobs' do
     expect(page).to have_content "Total de Vagas: 4"
     expect(page).to have_content "Data Limite: 23/04/2024"
     expect(page).to have_content "Faixa Salarial: R$2000 - R$2600"
-    expect(page).to have_link "Voltar", href: jobs_path
+    expect(page).to have_link "Voltar", href: employees_jobs_path
   end
 
   scenario 'and must fill all gaps' do
     employee = Employee.create!(email: 'joao@campuscode.com', password: '123456')
     login_as employee, scope: :employee
 
-    visit new_job_path
+    visit new_employees_job_path
 
     fill_in 'Título', with: ''
     fill_in 'Descrição Detalhada', with: ''
@@ -65,7 +57,7 @@ feature 'Employer register jobs' do
     fill_in 'Total de Vagas', with: ''
     click_on 'Criar Vaga'
 
-    expect(current_path).to eq jobs_path
+    expect(current_path).to eq employees_jobs_path
     expect(page).to have_content 'Título não pode ficar em branco'
     expect(page).to have_content "Descrição Detalhada não pode ficar em branco"
     expect(page).to have_content "Nível não pode ficar em branco"
@@ -73,7 +65,7 @@ feature 'Employer register jobs' do
     expect(page).to have_content "Total de Vagas não pode ficar em branco"
     expect(page).to have_content "Data Limite não pode ficar em branco"
     expect(page).to have_content "Faixa Salarial não pode ficar em branco"
-    expect(page).to have_link "Voltar", href: jobs_path
+    expect(page).to have_link "Voltar", href: employees_jobs_path
  
   end
 end

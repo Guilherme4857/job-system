@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'Visitor see app' do
+feature 'Employee see app' do
   scenario 'since root path' do
     visit root_path
 
