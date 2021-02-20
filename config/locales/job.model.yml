@@ -4,6 +4,9 @@ pt-BR:
       job:
         one: Vaga Aberta
         other: Vagas Abertas
+      level:
+        one: Nível
+        other: Níveis
     attributes:
       job:
         title: Título
@@ -12,3 +15,7 @@ pt-BR:
         requirements: Requisitos Obrigatórios
         expiration_date: Data Limite
         job_openings: Total de Vagas
+        levels: Nível
+      level:
+        name: Nível
+        

@@ -27,9 +27,11 @@
   <%=f.text_field :requirements%>
   </dt>
   
-  <dt>  
-  <%= f.collection_radio_buttons :level_ids, @level, :id, :name %>
-  </dt>
+  <% if not @job.errors.any? %>
+    <dt>  
+    <%= f.collection_radio_buttons :level_ids, @level, :id, :name %>
+    </dt>    
+  <% end %>
   
   <dt>
   <%=f.label :expiration_date%>

@@ -15,8 +15,7 @@ feature 'Visit see app' do
     job = Job.create!(company: company, title: 'Desenvolvedor Ruby',
                       description: 'Vai desenvolver aplicações utilizando ruby',
                       pay_scale: 'R$2000 - R$2600' , requirements: 'Saber ruby',
-                      expiration_date: '23/04/2024', job_openings: 4)
-    job.levels << level
+                      expiration_date: '23/04/2024', job_openings: 4, levels:[level])
 
     visit root_path
     click_on 'Vagas de emprego'
@@ -41,8 +40,7 @@ feature 'Visit see app' do
     job = Job.create!(company: company, title: 'Desenvolvedor Ruby',
                       description: 'Vai desenvolver aplicações utilizando ruby',
                       pay_scale: 'R$2000 - R$2600' , requirements: 'Saber ruby',
-                      expiration_date: '23/04/2024', job_openings: 4)
-    job.levels << level
+                      expiration_date: '23/04/2024', job_openings: 4, levels:[level])
 
     visit job_path(job)
 

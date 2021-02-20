@@ -3,7 +3,7 @@ class Employees::JobsController < ApplicationController
 
   def index
     @company = find_company
-    @jobs = find_company.jobs
+    @jobs = @company.jobs
     @level = Level.model_name.human
     @opened = Job.model_name.human(count: Job.all)
   end
@@ -14,8 +14,9 @@ class Employees::JobsController < ApplicationController
   end
 
   def create
-    if find_company.jobs.create(job_params)
-      redirect_to employees_company_job_path(Job.last, current_employee.company)
+    @job = find_company.jobs.build(job_params)
+    if @job.save
+      redirect_to employees_company_job_path(current_employee.company, Job.last)
     else
       render 'new'
     end
@@ -36,16 +37,17 @@ class Employees::JobsController < ApplicationController
     @job = Job.find(params[:id])
     
     if @job.update(job_params)
-      redirect_to employees_job_path(@job)
+      redirect_to employees_company_job_path(current_employee.company, @job)
     else
       render :edit
     end
   end
 
   def destroy
-    @job = Job.find(params[:id])
+    @job = find_company.jobs.find(params[:id])
     @job.destroy
-    redirect_to employees_jobs_path, notice: 'Vaga deletada com sucesso'
+    redirect_to employees_company_jobs_path(
+    current_employee.company), notice: 'Vaga deletada com sucesso'
   end
 end
 
@@ -53,7 +55,7 @@ end
 private
 
 def job_params
-  job = params.require(:job).permit(:title, :description, :pay_scale, 
+  job = params.require(:job).permit(:company_id, :title, :description, :pay_scale, 
                                     :requirements, :expiration_date, 
                                     :job_openings, :level_ids)
 end

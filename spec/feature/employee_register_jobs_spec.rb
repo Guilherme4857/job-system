@@ -29,13 +29,11 @@ feature 'Employer register jobs' do
     address = CompanyAddress.create!(company: company, public_place: 'Rua Cícero, 41', 
                                      district: 'Anhembi', city: 'São Paulo', zip_code: '41002-241')
     employee.company = company
-
     Level.create!(name: 'júnior')
     Level.create!(name: 'pleno')
     Level.create!(name: 'sênior')
 
     visit new_employees_company_job_path(company)
-
     within('form') do
       fill_in 'Título', with: job[:title]
       fill_in 'Descrição Detalhada', with: job[:description]
@@ -63,7 +61,7 @@ feature 'Employer register jobs' do
     expect(page).to have_link "Voltar", href: employees_company_jobs_path(company)
   end
 
-  xscenario 'and must fill all gaps' do
+  scenario 'and must fill all gaps' do
     employee = Employee.create!(email: 'joao@campuscode.com', password: '123456')
     login_as employee, scope: :employee
     job = {title: 'Desenvolvedor Ruby', description: 'Vai desenvolver aplicações utilizando ruby',
@@ -74,26 +72,29 @@ feature 'Employer register jobs' do
     address = CompanyAddress.create!(company: company, public_place: 'Rua Cícero, 41', 
                                      district: 'Anhembi', city: 'São Paulo', zip_code: '41002-241')
     employee.company = company
+    Level.create!(name: 'júnior')
+    Level.create!(name: 'pleno')
+    Level.create!(name: 'sênior')
 
     visit new_employees_company_job_path(company)
+    within('form') do
+      fill_in 'Título', with: ''
+      fill_in 'Descrição Detalhada', with: ''
+      fill_in 'Faixa Salarial', with: ''
+      fill_in 'Requisitos Obrigatórios', with: ''
+      fill_in 'Data Limite', with: ''
+      fill_in 'Total de Vagas', with: ''
+      click_on 'Criar Vaga'        
+    end
 
-    fill_in 'Título', with: ''
-    fill_in 'Descrição Detalhada', with: ''
-    fill_in 'Faixa Salarial', with: ''
-    fill_in 'Requisitos Obrigatórios', with: ''
-    fill_in 'Data Limite', with: ''
-    fill_in 'Total de Vagas', with: ''
-    click_on 'Criar Vaga'
-
-    expect(current_path).to eq employees_company_jobs_path(@company)
+    expect(current_path).to eq employees_company_jobs_path(company)
     expect(page).to have_content 'Título não pode ficar em branco'
     expect(page).to have_content "Descrição Detalhada não pode ficar em branco"
-    expect(page).to have_content "Nível não pode ficar em branco"
     expect(page).to have_content "Requisitos Obrigatórios não pode ficar em branco"
     expect(page).to have_content "Total de Vagas não pode ficar em branco"
     expect(page).to have_content "Data Limite não pode ficar em branco"
     expect(page).to have_content "Faixa Salarial não pode ficar em branco"
-    expect(page).to have_link "Voltar", href: employees_company_jobs_path(@company)
+    expect(page).to have_link "Voltar", href: employees_company_path(company)
  
   end
 end

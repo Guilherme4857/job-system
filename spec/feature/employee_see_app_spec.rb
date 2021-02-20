@@ -61,10 +61,9 @@ feature 'Employee see app' do
     job = Job.create!(company: company, title: 'Desenvolvedor Ruby',
                       description: 'Vai desenvolver aplicações utilizando ruby',
                       pay_scale: 'R$2000 - R$2600' , requirements: 'Saber ruby',
-                      expiration_date: '23/04/2024', job_openings: 4)
+                      expiration_date: '23/04/2024', job_openings: 4, levels:[level])
     address = CompanyAddress.create!(company: company, public_place: 'Rua Cícero, 41', 
                                      district: 'Anhembi', city: 'São Paulo', zip_code: '41002-241')
-    job.levels << level
     employee.company = company
 
     visit employees_company_path(company)
@@ -90,9 +89,8 @@ feature 'Employee see app' do
     job = Job.create!(company: company, title: 'Desenvolvedor Ruby',
                       description: 'Vai desenvolver aplicações utilizando ruby',
                       pay_scale: 'R$2000 - R$2600' , requirements: 'Saber ruby',
-                      expiration_date: '23/04/2024', job_openings: 4)
+                      expiration_date: '23/04/2024', job_openings: 4, levels:[level])
     employee.company = company
-    job.levels << level
 
     visit employees_company_job_path(job, company)
 
@@ -122,7 +120,7 @@ feature 'Employee see app' do
 
     visit employees_company_jobs_path(company)
 
-    within('h1'){expect(page).to have_content 'Campus Code'}
+    within('h1'){expect(page).to have_content "Campus Code Vagas Abertas"}
     within('h2#without'){expect(page).to have_content 'Sem anúncio de vaga'}
     expect(page).to have_link  'Voltar', href: employees_company_path(company)    
   end

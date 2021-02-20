@@ -1,1 +1,47 @@
-<>
+<% if @job.errors.any? %>
+  <%@job.errors.each do |error|%>
+    <dt><%=error.full_message%></dt>
+  <% end %>
+<% end %>
+
+<h1 class='info' id='header'>Formulário de Edição da Vaga</h1>
+
+<%=form_with model: [:employees, @job], method: :put do |f|%>
+  <dt>
+  <%=f.label :title%>
+  <%=f.text_field :title%>
+  </dt>
+
+  <dt>
+  <%=f.label :description%>
+  <%=f.text_field :description%>
+  </dt>
+
+  <dt>
+  <%=f.label :pay_scale%>
+  <%=f.text_field :pay_scale%>
+  </dt>
+
+  <dt>
+  <%=f.label :requirements%>
+  <%=f.text_field :requirements%>
+  </dt>
+
+  <% if not @job.errors.any? %>
+    <dt>  
+    <%= f.collection_radio_buttons :level_ids, @level, :id, :name %>
+    </dt>    
+  <% end %>
+
+  <dt>
+  <%=f.label :expiration_date%>
+  <%=f.text_field :expiration_date%>
+  </dt>
+
+  <dt>
+  <%=f.label :job_openings%>
+  <%=f.text_field :job_openings%>
+  </dt>
+
+  <dt><%=f.submit%></dt>
+<% end %>
