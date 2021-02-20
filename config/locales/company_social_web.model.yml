@@ -1,7 +1,9 @@
 pt-BR:
   activerecord:
     models:
-      company_social_web: Rede Social
+      company_social_web: 
+        one: Rede Social
+        other: Redes Sociais
     
     attributes:
       company_social_web:

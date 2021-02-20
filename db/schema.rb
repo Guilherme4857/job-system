@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_15_143016) do
+ActiveRecord::Schema.define(version: 2021_02_17_215503) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -94,14 +94,30 @@ ActiveRecord::Schema.define(version: 2021_02_15_143016) do
     t.index ["reset_password_token"], name: "index_employees_on_reset_password_token", unique: true
   end
 
+  create_table "job_levels", force: :cascade do |t|
+    t.integer "job_id", null: false
+    t.integer "level_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["job_id"], name: "index_job_levels_on_job_id"
+    t.index ["level_id"], name: "index_job_levels_on_level_id"
+  end
+
   create_table "jobs", force: :cascade do |t|
+    t.integer "company_id", null: false
     t.string "title"
     t.text "description"
     t.string "pay_scale"
-    t.string "level"
     t.string "requirements"
     t.date "expiration_date"
     t.integer "job_openings"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["company_id"], name: "index_jobs_on_company_id"
+  end
+
+  create_table "levels", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -112,4 +128,7 @@ ActiveRecord::Schema.define(version: 2021_02_15_143016) do
   add_foreign_key "company_employees", "companies"
   add_foreign_key "company_employees", "employees"
   add_foreign_key "company_social_webs", "companies"
+  add_foreign_key "job_levels", "jobs"
+  add_foreign_key "job_levels", "levels"
+  add_foreign_key "jobs", "companies"
 end

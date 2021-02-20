@@ -1,0 +1,61 @@
+<h1>Formulário de Cadastro da Empresa</h1>
+
+<%=form_with model: [:employees, @company] do |f|%>
+  <dt>
+  <%=f.label :name%>
+  <%=f.text_field :name%>
+  </dt>
+
+  <dt>
+  <%=f.label :company_picture%>
+  <%=f.file_field :company_picture%>
+  </dt>
+
+  <dt>
+  <%=f.label :cnpj%>
+  <%=f.text_field :cnpj%>
+  </dt>
+
+  <dt>
+  <%=f.label :site%>
+  <%=f.text_field :site%>
+  </dt>
+
+  <dt>
+  <%=f.label :company_history%>
+  <%=f.text_field :company_history%>
+  </dt>
+  
+  <%=f.fields_for :company_social_webs do |social_web|%>
+    <dt>
+    <%@number += 1%>
+    <%= social_web.label :address_web, "Rede Social #{@number}"%>
+    <%= social_web.text_field :address_web%>
+    </dt>
+  <% end %>
+
+  <%=f.fields_for :company_address do |info|%>
+    <dt>
+    <%= info.label :public_place%>
+    <%= info.text_field :public_place%>
+    </dt>
+
+    <dt>
+    <%= info.label :district%>
+    <%= info.text_field :district%>
+    </dt>
+
+    <dt>
+    <%= info.label :city%>
+    <%= info.text_field :city%>
+    </dt>
+
+    <dt>
+    <%= info.label :zip_code%>
+    <%= info.text_field :zip_code%>
+    </dt>
+  <% end %>
+  <dt>
+  <%=f.submit%>
+  </dt>
+<% end %>

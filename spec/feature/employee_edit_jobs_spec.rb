@@ -2,40 +2,51 @@ require 'rails_helper'
 
 feature 'Employer edit jobs' do
   scenario 'from root path' do
+    company = Company.create!(name: 'Campus Code', cnpj: '33.222.111/0050-46', 
+                              site: 'campuscode.com', company_history: 'Vem crescendo bastante')
     employee = Employee.create!(email: 'joao@campuscode.com', password: '123456')
-    job = Job.create!(title: 'Desenvolvedor Ruby',
-                      description: 'Vai desenvolver aplicações utilizando ruby',
-                      pay_scale: 'R$2000 - R$2600' ,level: 'Junior',
-                      requirements: 'Saber ruby',expiration_date: '23/04/2024',job_openings: 4)
+    level = Level.create!(name: 'júnior')
+    job = Job.create!(company: company, title: 'Desenvolvedor Ruby', description: 'Vai desenvolver aplicações utilizando ruby',
+                      pay_scale: 'R$2000 - R$2600' , requirements: 'Saber ruby', expiration_date: '23/04/2024',job_openings: 4)
+    employee.company = company
+    job.levels << level
     login_as employee, scope: :employee
+    social_web_one = CompanySocialWeb.create!(company: company, address_web: 'linkedin.com/school/campus-code/')
+    social_web_two = CompanySocialWeb.create!(company: company, address_web: 'facebook.com/CampusCodeBr/') 
+    social_web_three = CompanySocialWeb.create!(company: company, address_web:'twitter.com/campuscodebr')
+    address = CompanyAddress.create!(company: company, public_place: 'Rua Cícero, 41', 
+                                     district: 'Anhembi', city: 'São Paulo', zip_code: '41002-241')
 
-    visit root_path
-    click_on 'Vagas de emprego'
-    click_on job.title
+    visit employees_root_path
+    click_on 'Ver sua empresa'
+    click_on 'Suas vagas anunciadas'
+    click_on 'Desenvolvedor Ruby'
     click_on 'Editar Vaga'
 
     expect(current_path).to eq edit_employees_job_path job
   end
 
   scenario 'successfully' do
+    company = Company.create!(name: 'Campus Code', cnpj: '33.222.111/0050-46', 
+                              site: 'campuscode.com', company_history: 'Vem crescendo bastante')
     employee = Employee.create!(email: 'joao@campuscode.com', password: '123456')
-    job = Job.create!(title: 'Desenvolvedor Java',
+    job = Job.create!(company: company, title: 'Desenvolvedor Java',
                       description: 'Vai desenvolver aplicações utilizando java',
-                      pay_scale: 'R$2000 - R$2600' ,level: 'Junior',
-                      requirements: 'Saber java',expiration_date: '23/04/2024',job_openings: 4)
+                      pay_scale: 'R$2000 - R$2600' , requirements: 'Saber java',
+                      expiration_date: '23/04/2024', job_openings: 4)
     login_as employee, scope: :employee
   
     edited_job = {title: 'Desenvolvedor Ruby', description: 'Vai desenvolver 
                   aplicações utilizando ruby', pay_scale: 'R$2000 - R$2600' ,
-                  level: 'Junior', requirements: 'Saber ruby', 
-                  expiration_date: '23/04/2024',job_openings: 4}
+                  requirements: 'Saber ruby', expiration_date: '23/04/2024',
+                  job_openings: 4}
 
     visit edit_employees_job_path job
     
     fill_in 'Título', with: edited_job[:title]
     fill_in 'Descrição Detalhada', with: edited_job[:description]
     fill_in 'Faixa Salarial', with: edited_job[:pay_scale]
-    fill_in 'Nível', with: edited_job[:level]
+    check   'júnior'
     fill_in 'Requisitos Obrigatórios', with: edited_job[:requirements]
     fill_in 'Data Limite', with: edited_job[:expiration_date]
     fill_in 'Total de Vagas', with: edited_job[:job_openings]
@@ -52,12 +63,14 @@ feature 'Employer edit jobs' do
     expect(page).to have_link "Voltar", href: employees_jobs_path
   end
 
-  scenario "and can't let blank gaps" do
+  xscenario "and can't let blank gaps" do
+    company = Company.create!(name: 'Campus Code', cnpj: '33.222.111/0050-46', 
+                              site: 'campuscode.com', company_history: 'Vem crescendo bastante')
     employee = Employee.create!(email: 'joao@campuscode.com', password: '123456')
-    job = Job.create!(title: 'Desenvolvedor Java',
+    job = Job.create!(company: company, title: 'Desenvolvedor Java',
                       description: 'Vai desenvolver aplicações utilizando java',
-                      pay_scale: 'R$2000 - R$2600' ,level: 'Junior',
-                      requirements: 'Saber java',expiration_date: '23/04/2024',job_openings: 4)
+                      pay_scale: 'R$2000 - R$2600' , requirements: 'Saber java',
+                      expiration_date: '23/04/2024', job_openings: 4)
     login_as employee, scope: :employee
  
     visit edit_employees_job_path job
@@ -65,7 +78,7 @@ feature 'Employer edit jobs' do
     fill_in 'Título', with: ''
     fill_in 'Descrição Detalhada', with: ''
     fill_in 'Faixa Salarial', with: ''
-    fill_in 'Nível', with: ''
+    check   'júnior'
     fill_in 'Requisitos Obrigatórios', with: ''
     fill_in 'Data Limite', with: ''
     fill_in 'Total de Vagas', with: ''
@@ -74,7 +87,6 @@ feature 'Employer edit jobs' do
     expect(current_path).to eq employees_job_path(job)
     expect(page).to have_content 'Título não pode ficar em branco'
     expect(page).to have_content "Descrição Detalhada não pode ficar em branco"
-    expect(page).to have_content "Nível não pode ficar em branco"
     expect(page).to have_content "Requisitos Obrigatórios não pode ficar em branco"
     expect(page).to have_content "Total de Vagas não pode ficar em branco"
     expect(page).to have_content "Data Limite não pode ficar em branco"

@@ -1,19 +1,15 @@
-<h1>
-<%=@job.title%>
-</h1>
-<div class='block' id='job'>
+<h1><%=@job.company.name%></h1>
+
+<div class='model' id='job'>
+<dt><%=@job.job_attributes(0)%>: <%=@job.title%></dt>
 <dt><%=@job.job_attributes(1)%>: <%=@job.description%></dt>
-<dt><%=@job.job_attributes(3)%>: <%=@job.level%></dt>
-<dt><%=@job.job_attributes(4)%>: <%=@job.requirements%></dt>
-<dt><%=@job.job_attributes(6)%>: <%=@job.job_openings%></dt>
-<dt><%=@job.job_attributes(5)%>: <%=localize @job.expiration_date%></dt>
+<dt><%=@level%>: <%=@job.levels.first.name%></dt>
+<dt><%=@job.job_attributes(3)%>: <%=@job.requirements%></dt>
+<dt><%=@job.job_attributes(5)%>: <%=@job.job_openings%></dt>
+<dt><%=@job.job_attributes(4)%>: <%=localize @job.expiration_date%></dt>
 <dt><%=@job.job_attributes(2)%>: <%=@job.pay_scale%></dt>
-<%=link_to 'Editar Vaga', edit_employees_job_path(@job)%> 
-<%=button_to 'Deletar Vaga', employees_job_path(@job), method: :delete, 
-data: {confirm: 'Tem certeza que quer apagar a vaga ?'}%>
+<%=link_to 'Deletar Vaga', employees_job_path(@job), method: :delete%>
+<%=link_to 'Editar Vaga', edit_employees_job_path(@job)%>
 </div>
 
-
-<p>
-<div><%=link_to 'Voltar', employees_jobs_path%></div>
-</p>
+<%=link_to 'Voltar', employees_company_jobs_path(@company.id)%>

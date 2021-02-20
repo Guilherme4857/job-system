@@ -12,7 +12,7 @@ feature 'Employee register yourself' do
       fill_in 'Confirme sua senha', with: '123456'
       click_on 'Inscrever-se'        
     end
-    expect(current_path).to eq new_company_path
+    expect(current_path).to eq new_employees_company_path
   end
 
   scenario 'and not first company employee registred' do
@@ -30,7 +30,7 @@ feature 'Employee register yourself' do
       fill_in 'Confirme sua senha', with: '123456'
       click_on 'Inscrever-se'        
     end
-    expect(current_path).to eq new_company_path
+    expect(current_path).to eq new_employees_company_path
   end
 
 end

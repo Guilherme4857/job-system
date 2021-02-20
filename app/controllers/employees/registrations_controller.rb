@@ -17,11 +17,16 @@ class Employees::RegistrationsController < Devise::RegistrationsController
       if not @employee.company?
         sign_in @employee, scope: :employee        
         @employee.admin!
-        redirect_to new_company_path
+        redirect_to new_employees_company_path, notice: 'Bem vindo! Você realizou
+                                               seu registro com sucesso.'
       else
         sign_in @employee, scope: :employee
-        redirect_to root_path, notice: 'Bem vindo! Você realizou/
-                                        seu registro com sucesso.'
+        hostname = current_employee.separe_hostname
+        company_employee = CompanyEmployee.create!(company: company_from_hostname(hostname), employee: current_employee, 
+                                                   hostname: hostname)
+
+        redirect_to employees_root_path, notice: 'Bem vindo! Você realizou
+                                                  seu registro com sucesso.'
       end
     else
       render 'new'
@@ -72,5 +77,12 @@ class Employees::RegistrationsController < Devise::RegistrationsController
   # The path used after sign up for inactive accounts.
   def after_inactive_sign_up_path_for(resource)
     super(resource)
+  end
+
+  def company_from_hostname(name)
+    companies = Company.all
+    companies.each do |company|
+      return company if company.company_employees.first.hostname == name
+    end
   end
 end

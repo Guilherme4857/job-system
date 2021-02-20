@@ -50,4 +50,5 @@ RSpec.describe Employee, type: :model do
       expect(second_name).to eq '@google.com'
     end    
   end
+  
 end

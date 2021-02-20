@@ -1,12 +1,13 @@
 Rails.application.routes.draw do
   root to: 'home#index'
   resources :jobs, only: %i[index show]
-  resources :companies, only: %i[new create]
-  resources :company_addresses, only: %i[create]
 
   namespace 'employees' do
-    resources :jobs
+    root to: 'home#index'
+    resources :companies, only: %i[show new create] do
+      resources :jobs, only: %i[index create new show]    
+    end
+    resources :jobs, only: %i[edit update destroy]
   end
-  
   devise_for :employees, controllers: {registrations: 'employees/registrations'}
 end

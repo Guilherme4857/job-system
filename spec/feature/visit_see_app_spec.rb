@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'Employee see app' do
+feature 'Visit see app' do
   scenario 'since root path' do
     visit root_path
 
@@ -9,10 +9,14 @@ feature 'Employee see app' do
   end
 
   scenario 'successfully' do
-    job = Job.create!(title: 'Desenvolvedor Ruby',
+    company = Company.create!(name: 'Campus Code', cnpj: '33.222.111/0050-46', 
+                              site: 'campuscode.com', company_history: 'Vem crescendo bastante')
+    level = Level.create!(name: 'júnior')
+    job = Job.create!(company: company, title: 'Desenvolvedor Ruby',
                       description: 'Vai desenvolver aplicações utilizando ruby',
-                      pay_scale: 'R$2000 - R$2600' ,level: 'Junior',
-                      requirements: 'Saber ruby',expiration_date: '23/04/2024',job_openings: 4)
+                      pay_scale: 'R$2000 - R$2600' , requirements: 'Saber ruby',
+                      expiration_date: '23/04/2024', job_openings: 4)
+    job.levels << level
 
     visit root_path
     click_on 'Vagas de emprego'
@@ -20,8 +24,9 @@ feature 'Employee see app' do
     expect(current_path).to eq jobs_path
     within('h1'){expect(page).to have_content "Vagas Abertas"}
     within('div#info') do
+      expect(page).to have_content "Campus Code"
       expect(page).to have_link 'Desenvolvedor Ruby', href: job_path(job)
-      expect(page).to have_content "Nível: Junior"
+      expect(page).to have_content "Nível: júnior"
       expect(page).to have_content "Requisitos Obrigatórios: Saber ruby"
       expect(page).to have_content "Data Limite: 23/04/2024"
     end
@@ -30,17 +35,22 @@ feature 'Employee see app' do
   end
 
   scenario 'and see jobs datails' do
-    job = Job.create!(title: 'Desenvolvedor Ruby',
+    company = Company.create!(name: 'Campus Code', cnpj: '33.222.111/0050-46', 
+                              site: 'campuscode.com', company_history: 'Vem crescendo bastante')
+    level = Level.create!(name: 'júnior')
+    job = Job.create!(company: company, title: 'Desenvolvedor Ruby',
                       description: 'Vai desenvolver aplicações utilizando ruby',
-                      pay_scale: 'R$2000 - R$2600' ,level: 'Junior',
-                      requirements: 'Saber ruby',expiration_date: '23/04/2024',job_openings: 4)
+                      pay_scale: 'R$2000 - R$2600' , requirements: 'Saber ruby',
+                      expiration_date: '23/04/2024', job_openings: 4)
+    job.levels << level
 
     visit job_path(job)
 
-    within('h1'){expect(page).to have_content 'Desenvolvedor Ruby'}
+    within('h1'){expect(page).to have_content "Campus Code"}
     within('div#job') do
+      expect(page).to have_content "Título: Desenvolvedor Ruby"
       expect(page).to have_content "Descrição Detalhada: Vai desenvolver aplicações utilizando ruby"
-      expect(page).to have_content "Nível: Junior"
+      expect(page).to have_content "Nível: júnior"
       expect(page).to have_content "Requisitos Obrigatórios: Saber ruby"
       expect(page).to have_content "Total de Vagas: 4"
       expect(page).to have_content "Data Limite: 23/04/2024"

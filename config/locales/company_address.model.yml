@@ -5,7 +5,7 @@ pt-BR:
     
     attributes:
       company_address:
-        public_place: Rua
+        public_place: Logradouro
         district: Bairro
         city: Cidade
         zip_code: CEP

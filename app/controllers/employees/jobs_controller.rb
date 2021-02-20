@@ -1,30 +1,35 @@
 class Employees::JobsController < ApplicationController
-  before_action :authenticate_employee!, only: %i[destroy update create new edit]
+  before_action :authenticate_employee! 
 
   def index
-    @jobs = Job.all
+    @company = find_company
+    @jobs = find_company.jobs
+    @level = Level.model_name.human
+    @opened = Job.model_name.human(count: Job.all)
   end
 
   def new
-    @job = Job.new
+    @job = find_company.jobs.build
+    @level = Level.all
   end
 
   def create
-    @job = Job.new(job_params)
-    
-    if @job.save
-      redirect_to employees_job_path @job
+    if find_company.jobs.create(job_params)
+      redirect_to employees_company_job_path(Job.last, current_employee.company)
     else
       render 'new'
     end
   end
 
   def show
+    @company = find_company
     @job = Job.find(params[:id])
+    @level = Level.model_name.human
   end
 
   def edit
     @job = Job.find(params[:id])
+    @level = Level.all
   end
 
   def update
@@ -49,6 +54,10 @@ private
 
 def job_params
   job = params.require(:job).permit(:title, :description, :pay_scale, 
-                                    :level, :requirements, :expiration_date, 
-                                    :job_openings)
+                                    :requirements, :expiration_date, 
+                                    :job_openings, :level_ids)
+end
+
+def find_company
+  company = current_employee.company
 end

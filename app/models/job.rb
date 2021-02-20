@@ -1,16 +1,17 @@
 class Job < ApplicationRecord
-  validates :title, :description, :pay_scale, :level, 
-            :requirements, :expiration_date, :job_openings, presence: true
+  has_many :job_levels
+  has_many :levels, through: :job_levels
+  belongs_to :company
 
-  def job_attributes(attribute = nil)
-     
-    return nil if(not attribute.is_a? Numeric) or (not attribute) or (attribute < 0)
-    attributes_list = [Job.human_attribute_name("title"), Job.human_attribute_name("description"), 
-                       Job.human_attribute_name("pay_scale"), Job.human_attribute_name("level"), 
-                       Job.human_attribute_name("requirements"), Job.human_attribute_name("expiration_date"), 
-                       Job.human_attribute_name("job_openings")]
+  validates :title, :description, :pay_scale, :requirements, :expiration_date,
+            :job_openings, presence: true
+  validates_associated :levels, presence: true
 
-    attributes_list[attribute]
+  def job_attributes(index)
+    attributes = [Job.human_attribute_name('title'), Job.human_attribute_name('description'),
+    Job.human_attribute_name('pay_scale'), Job.human_attribute_name('requirements'),
+    Job.human_attribute_name('expiration_date'), Job.human_attribute_name('job_openings')]
 
+    attributes[index]
   end
 end

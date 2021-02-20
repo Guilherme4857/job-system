@@ -1,12 +1,3 @@
-<h1>
-Balcão de Empregos
-</h1>
-<%if employee_signed_in?%>
-  <p>
-  <div><%=link_to 'Vagas de emprego', employees_jobs_path%></div>
-  </p>
-<% else %>
-  <p>
-  <div><%=link_to 'Vagas de emprego', jobs_path%></div>
-  </p>
-<%end%>
+<h1> Balcão de Empregos </h1>
+  
+<%=link_to 'Vagas de emprego', jobs_path%>

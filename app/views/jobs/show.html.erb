@@ -1,13 +1,14 @@
 <h1>
-<%=@job.title%>
+<%=@job.company.name%>
 </h1>
 
 <div class='block' id='job'>
+<dt><%=@job.job_attributes(0)%>: <%=@job.title%></dt>
 <dt><%=@job.job_attributes(1)%>: <%=@job.description%></dt>
-<dt><%=@job.job_attributes(3)%>: <%=@job.level%></dt>
-<dt><%=@job.job_attributes(4)%>: <%=@job.requirements%></dt>
-<dt><%=@job.job_attributes(6)%>: <%=@job.job_openings%></dt>
-<dt><%=@job.job_attributes(5)%>: <%=localize @job.expiration_date%></dt>
+<dt><%=@level%>: <%=@job.levels.first.name%></dt>
+<dt><%=@job.job_attributes(3)%>: <%=@job.requirements%></dt>
+<dt><%=@job.job_attributes(5)%>: <%=@job.job_openings%></dt>
+<dt><%=@job.job_attributes(4)%>: <%=localize @job.expiration_date%></dt>
 <dt><%=@job.job_attributes(2)%>: <%=@job.pay_scale%></dt>
 </div>
 

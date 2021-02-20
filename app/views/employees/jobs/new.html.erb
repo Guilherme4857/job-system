@@ -1,43 +1,46 @@
-<h1>
-Preencha todos os campos a seguir
-</h1>
-
-<%if @job.errors.any?%>
+<% if @job.errors.any? %>
   <%@job.errors.each do |error|%>
     <dt><%=error.full_message%></dt>
-  <%end%>
-<%end%>
+  <% end %>
+<% end %>
 
-<%=form_with model: [:employees, @job] do |f|%>
-  <div>
+<h1>Preencha todos os campos a seguir</h1>
+
+<%=form_with model: [:employees, :company, @job] do |f|%>
+  <dt>
   <%=f.label :title%>
   <%=f.text_field :title%>
-  </div>
-  <div>
+  </dt>  
+
+  <dt>
   <%=f.label :description%>
   <%=f.text_field :description%>
-  </div>
-  <div>
+  </dt>  
+
+  <dt>
   <%=f.label :pay_scale%>
   <%=f.text_field :pay_scale%>
-  </div>
-  <div>
-  <%=f.label :level%>
-  <%=f.text_field :level%>
-  </div>
-  <div>
+  </dt>  
+
+  <dt>
   <%=f.label :requirements%>
   <%=f.text_field :requirements%>
-  </div>
-  <div>
+  </dt>
+  
+  <dt>  
+  <%= f.collection_radio_buttons :level_ids, @level, :id, :name %>
+  </dt>
+  
+  <dt>
   <%=f.label :expiration_date%>
   <%=f.text_field :expiration_date%>
-  </div>
-  <div>
+  </dt>  
+
+  <dt>
   <%=f.label :job_openings%>
   <%=f.text_field :job_openings%>
-  </div>
-  <p><%=f.submit%></p>
-<%end%>
+  </dt>  
+  <dt><%=f.submit%></dt>
+<% end %>
 
-<div><%=link_to 'Voltar', employees_jobs_path%></div>
+<%=link_to "Voltar", employees_company_path(current_employee.company)%>

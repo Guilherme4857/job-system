@@ -1,0 +1,5 @@
+<h1> Balcão de Empregos </h1>
+<%if employee_signed_in?%>
+  <%=link_to 'Ver sua empresa', employees_company_path(@company)%>
+  
+<% end %>

@@ -10,11 +10,12 @@
 </h2>
 
 <%@jobs.each do |job|%>
-  <div class='divison' id='info' >
-  <h2 class='header' id='Job'><%=link_to job.title, job_path(job)%>(ver detalhes)</h2>
-  <dt class='line' id='first'><%=job.job_attributes(3)%>: <%= job.level%></dt>
-  <dt class='line' id='second'><%=job.job_attributes(4)%>: <%=job.requirements%></dt>
-  <dt class='line' id='third'><%=job.job_attributes(5)%>: <%= localize job.expiration_date%></dt>
+  <div class='divison' id='info'>
+  <h2 class='header' id='Job'><%=job.company.name%></h2>
+  <dt class='line' id='first'><%=job.job_attributes(0)%>: <%=link_to job.title, job_path(job)%>(ver detalhes)</dt>
+  <dt class='line' id='second'><%=@level%>: <%= job.levels.first.name%></dt>
+  <dt class='line' id='third'><%=job.job_attributes(3)%>: <%=job.requirements%></dt>
+  <dt class='line' id='forth'><%=job.job_attributes(4)%>: <%= localize job.expiration_date%></dt>
   </div>
 <%end%>
 

@@ -30,4 +30,5 @@ class Employee < ApplicationRecord
       nil
     end
   end
+  
 end
