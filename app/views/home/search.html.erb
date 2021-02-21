@@ -1,0 +1,37 @@
+<h1>Resultados de pesquisa</h1>
+
+<%if @companies != [] && @jobs == []%>
+  <div class='company' id='info'>
+  <%@companies.each do |company|%>
+    <h2><%=link_to company.name, company_path(company)%></h2>
+    <%company.jobs.each do |job|%>
+      <dt>
+      <%=job.job_attributes(0)%>: <%=
+      link_to job.title, job_path(job)%>
+      </dt>
+      <dt><%=job.job_attributes(3)%>: <%=job.requirements%></dt>
+      <dt><%=job.job_attributes(4)%>: <%=localize job.expiration_date%></dt>
+    <% end %>
+  <% end %>
+  <div>
+<% elsif @companies == [] && @jobs != [] %>
+  <div class='job' id='info'>
+  <%@jobs.each do |job|%>
+    <dt>
+    <%=job.company.company_attributes(0)%>: <%=
+    link_to job.company.name, company_path(job.company)%>
+    </dt>
+    <dt>
+    <%=job.job_attributes(0)%>: <%=
+    link_to job.title, job_path(job)%>
+    </dt>
+    <dt><%=job.job_attributes(3)%>: <%=job.requirements%></dt>
+    <dt><%=job.job_attributes(4)%>: <%=localize job.expiration_date%></dt>
+  <% end %>
+  </div>
+<% elsif @companies == [] && @jobs == []%>
+  Nenhum resultado encontrado
+<% else %>
+  deu ruim
+<% end %>
+<div class='return' id='root'><%=link_to 'Voltar', root_path%></div>

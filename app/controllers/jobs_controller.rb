@@ -2,6 +2,7 @@ class JobsController < ApplicationController
   def index
     @jobs = Job.all
     @level = Level.model_name.human
+    @company = Company.model_name.human
   end
 
   def show

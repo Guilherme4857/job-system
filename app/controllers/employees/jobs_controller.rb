@@ -44,10 +44,10 @@ class Employees::JobsController < ApplicationController
   end
 
   def destroy
-    @job = find_company.jobs.find(params[:id])
+    @job = Job.find(params[:id])
     @job.destroy
-    redirect_to employees_company_jobs_path(
-    current_employee.company), notice: 'Vaga deletada com sucesso'
+    redirect_to employees_company_jobs_path current_employee.company, 
+    notice: 'Vaga deletada com sucesso'
   end
 end
 

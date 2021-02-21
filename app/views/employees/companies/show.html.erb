@@ -18,12 +18,12 @@
 <div class='company' id='info'>
 
 <dt><%=@company.company_attributes(2)%>: <%=@company.cnpj%></dt>
-<dt><%=@company.company_attributes(3)%>: <%=link_to @company.site%></dt>
+<dt><%=@company.company_attributes(3)%>: <%=link_to @company.site, "http://www.#{@company.site}"%></dt>
 
 <h3><%=@social_webs%></h3>
 
 <%@company.company_social_webs.each do |social_web| %>
-  <dt><%=link_to social_web.address_web%></dt>
+  <dt><%=link_to social_web.address_web, "http://www.#{social_web.address_web}"%></dt>
 <% end %>
 
 <h3><%=@address%></h3>

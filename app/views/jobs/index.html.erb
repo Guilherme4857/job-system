@@ -8,17 +8,15 @@
   <div class=> Sem anúncio de vaga <div>
 <%end%>
 </h2>
-
+<div class='divison' id='info'>
 <%@jobs.each do |job|%>
-  <div class='divison' id='info'>
-  <h2 class='header' id='Job'><%=job.company.name%></h2>
+  <dt class='header' id='Job'><%=@company%>: <%=link_to job.company.name, company_path(job.company)%></dt>
   <dt class='line' id='first'><%=job.job_attributes(0)%>: <%=link_to job.title, job_path(job)%>(ver detalhes)</dt>
   <dt class='line' id='second'><%=@level%>: <%= job.levels.first.name%></dt>
   <dt class='line' id='third'><%=job.job_attributes(3)%>: <%=job.requirements%></dt>
   <dt class='line' id='forth'><%=job.job_attributes(4)%>: <%= localize job.expiration_date%></dt>
-  </div>
 <%end%>
-
+</div>
 <p>
 <div><%=link_to 'Voltar', root_path%></div>
 </p>

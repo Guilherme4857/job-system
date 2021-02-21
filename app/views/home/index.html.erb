@@ -1,3 +1,14 @@
 <h1> Balcão de Empregos </h1>
-  
-<%=link_to 'Vagas de emprego', jobs_path%>
+
+<h3 class='search' id='jobs'>
+<dt>Busque Vagas ou Empresas</dt>
+  <%=form_with url: search_path, method: :get do%>
+    <dt>
+    <%=label_tag :element, 'Busca:'%>
+    <%=text_field_tag :element%>
+    <%=submit_tag 'Pesquisar'%>
+    </dt>
+  <% end %>
+</h3>  
+
+<div><%=link_to 'Vagas Abertas', jobs_path%></div>

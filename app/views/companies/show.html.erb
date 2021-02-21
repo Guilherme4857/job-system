@@ -1,0 +1,34 @@
+<header class='image' id='logo'>
+<%if @company.company_picture.attached?%>
+  <%= image_tag  @company.company_picture%>
+<% end %>
+</header>
+
+<h1><%=@company.name%></h1>
+
+<h2 class='text' id=header>Informações</h2>
+
+<div class='body' id='company'>
+<dt><%=@company.company_attributes(2)%>: <%=@company.cnpj%></dt>
+<dt>Número de funcionários: <%=@company.employees.count%></dt>
+<dt><%=@company.company_attributes(3)%>: <%=link_to @company.site, "http://www.#{@company.site}"%></dt>
+
+<dt><%=@company_social_webs%></dt>
+
+<%@company.company_social_webs.each do |csw|%>
+  <dt><%=link_to csw.address_web, "http://www.#{csw.address_web}"%></dt>
+<% end %>
+
+<dt><%=@company_address%></dt>
+
+<dt><%=@company.company_address.company_address_attributes(0)%>: <%=@company.company_address.public_place%></dt>
+<dt><%=@company.company_address.company_address_attributes(1)%>: <%=@company.company_address.district%></dt>
+<dt><%=@company.company_address.company_address_attributes(2)%>: <%=@company.company_address.city%></dt>
+<dt><%=@company.company_address.company_address_attributes(3)%>: <%=@company.company_address.zip_code%></dt>
+
+<dt><%=@company.company_attributes(4)%></dt>
+
+<dt><%=@company.company_history%></dt>
+<div>
+
+<dt><%=link_to 'Voltar', jobs_path%></dt>

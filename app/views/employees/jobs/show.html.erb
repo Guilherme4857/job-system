@@ -8,7 +8,7 @@
 <dt><%=@job.job_attributes(5)%>: <%=@job.job_openings%></dt>
 <dt><%=@job.job_attributes(4)%>: <%=localize @job.expiration_date%></dt>
 <dt><%=@job.job_attributes(2)%>: <%=@job.pay_scale%></dt>
-<%=link_to 'Deletar Vaga', employees_company_job_path(@job.company, @job), method: :delete%>
+<%=link_to 'Deletar Vaga', employees_job_path(@job), method: :delete%>
 <%=link_to 'Editar Vaga', edit_employees_job_path(@job)%>
 </div>
 
