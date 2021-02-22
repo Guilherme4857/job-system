@@ -5,7 +5,7 @@
   <%=form_with url: search_path, method: :get do%>
     <dt>
     <%=label_tag :element, 'Busca:'%>
-    <%=text_field_tag :element%>
+    <%=search_field_tag :element%>
     <%=submit_tag 'Pesquisar'%>
     </dt>
   <% end %>

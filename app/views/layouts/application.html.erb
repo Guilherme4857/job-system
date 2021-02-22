@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>JobSystem</title>
+    <title>PromotionSystem</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -9,18 +9,25 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
- 
+
   <body>
-    <nav class= 'navigation' id='principal'>
-      <%if employee_signed_in?%>
-        <%= current_employee.email%>
+    <nav class='login' id='principal'>
+      <%if (employee_signed_in?) && (not job_seeker_signed_in?)%>
+        <%=current_employee.email%>
         <%=link_to 'Sair', destroy_employee_session_path, method: :delete%>
+      
+      <% elsif (not employee_signed_in?) && (job_seeker_signed_in?)%>
+        <%=link_to current_job_seeker.social_name, job_seeker_path(current_job_seeker)%>
+        <%=link_to 'Sair', destroy_job_seeker_session_path, method: :delete%>
+
       <%else%>
-        <%=link_to 'Entrar como funcionário de empresa', new_employee_session_path%>
+        <%=link_to 'Entrar como funcionário de empresa', new_employee_session_path %>
+        <%=link_to 'Entrar para candidatar-se', new_job_seeker_session_path %>
       <%end%>
     </nav>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
+
     <%= yield %>
   </body>
 </html>

@@ -13,20 +13,20 @@
 <dt>Número de funcionários: <%=@company.employees.count%></dt>
 <dt><%=@company.company_attributes(3)%>: <%=link_to @company.site, "http://www.#{@company.site}"%></dt>
 
-<dt><%=@company_social_webs%></dt>
+<h2><%=@company_social_webs%></h2>
 
 <%@company.company_social_webs.each do |csw|%>
   <dt><%=link_to csw.address_web, "http://www.#{csw.address_web}"%></dt>
 <% end %>
 
-<dt><%=@company_address%></dt>
+<h2><%=@company_address%></h2>
 
 <dt><%=@company.company_address.company_address_attributes(0)%>: <%=@company.company_address.public_place%></dt>
 <dt><%=@company.company_address.company_address_attributes(1)%>: <%=@company.company_address.district%></dt>
 <dt><%=@company.company_address.company_address_attributes(2)%>: <%=@company.company_address.city%></dt>
 <dt><%=@company.company_address.company_address_attributes(3)%>: <%=@company.company_address.zip_code%></dt>
 
-<dt><%=@company.company_attributes(4)%></dt>
+<h2><%=@company.company_attributes(4)%></h2>
 
 <dt><%=@company.company_history%></dt>
 <div>

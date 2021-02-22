@@ -16,7 +16,7 @@ class Employees::JobsController < ApplicationController
   def create
     @job = find_company.jobs.build(job_params)
     if @job.save
-      redirect_to employees_company_job_path(current_employee.company, Job.last)
+      redirect_to employees_company_job_path(current_employee.company, @job)
     else
       render 'new'
     end

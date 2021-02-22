@@ -2,59 +2,62 @@
 
 <%=form_with model: [:employees, @company] do |f|%>
   <dt>
-  <%=f.label :name%>
+  <%=f.label :name%><br>
   <%=f.text_field :name%>
   </dt>
-
+  <br>
   <dt>
-  <%=f.label :company_picture%>
+  <%=f.label :company_picture%><br>
   <%=f.file_field :company_picture%>
   </dt>
-
+  <br>
   <dt>
-  <%=f.label :cnpj%>
+  <%=f.label :cnpj%><br>
   <%=f.text_field :cnpj%>
   </dt>
-
+  <br>
   <dt>
-  <%=f.label :site%>
-  <%=f.text_field :site%>
-  </dt>
-
-  <dt>
-  <%=f.label :company_history%>
-  <%=f.text_field :company_history%>
+  <%=f.label :site%><br>
+  <%=f.url_field :site%>
   </dt>
   
   <%=f.fields_for :company_social_webs do |social_web|%>
+    <br>
     <dt>
     <%@number += 1%>
-    <%= social_web.label :address_web, "Rede Social #{@number}"%>
-    <%= social_web.text_field :address_web%>
+    <%= social_web.label :address_web, "Rede Social #{@number}"%><br>
+    <%= social_web.url_field :address_web%>
     </dt>
+    
   <% end %>
-
+    <br>
   <%=f.fields_for :company_address do |info|%>
     <dt>
-    <%= info.label :public_place%>
+    <%= info.label :public_place%><br>
     <%= info.text_field :public_place%>
     </dt>
-
+    <br>
     <dt>
-    <%= info.label :district%>
+    <%= info.label :district%><br>
     <%= info.text_field :district%>
     </dt>
-
+    <br>
     <dt>
-    <%= info.label :city%>
+    <%= info.label :city%><br>
     <%= info.text_field :city%>
     </dt>
-
+    <br>
     <dt>
-    <%= info.label :zip_code%>
+    <%= info.label :zip_code%><br>
     <%= info.text_field :zip_code%>
     </dt>
   <% end %>
+  <br>
+  <dt>
+  <%=f.label :company_history%><br>
+  <%=f.text_area :company_history, size: '150x20'%>
+  </dt>
+  <br>
   <dt>
   <%=f.submit%>
   </dt>

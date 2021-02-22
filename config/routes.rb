@@ -11,5 +11,12 @@ Rails.application.routes.draw do
     end
     resources :jobs, only: %i[edit update destroy]
   end
-  devise_for :employees, controllers: {registrations: 'employees/registrations'}
+  devise_for :employees, controllers: {
+  registrations: 'employees/registrations', 
+  sessions: 'employees/sessions'}
+  
+  devise_for :job_seekers, controllers: {
+  sessions: 'job_seeker/sessions'}
+
+  get '/job_seekers/:id', to: 'job_seekers#show', as: 'job_seeker'
 end
