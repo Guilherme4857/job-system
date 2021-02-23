@@ -17,12 +17,12 @@
         <%=link_to 'Sair', destroy_employee_session_path, method: :delete%>
       
       <% elsif (not employee_signed_in?) && (job_seeker_signed_in?)%>
-        <%=link_to current_job_seeker.social_name, job_seeker_path(current_job_seeker)%>
-        <%=link_to 'Sair', destroy_job_seeker_session_path, method: :delete%>
+        <dt><%=link_to current_job_seeker.social_name, job_seeker_profile_path(current_job_seeker)%></dt>
+        <dt><%=link_to 'Sair', destroy_job_seeker_session_path, method: :delete%></dt>
 
       <%else%>
-        <%=link_to 'Entrar como funcionário de empresa', new_employee_session_path %>
-        <%=link_to 'Entrar para candidatar-se', new_job_seeker_session_path %>
+        <dt><%=link_to 'Entrar como funcionário de empresa', new_employee_session_path %></dt>
+        <dt><%=link_to 'Entrar para candidatar-se', new_job_seeker_session_path %></dt>
       <%end%>
     </nav>
     <p class="notice"><%= notice %></p>

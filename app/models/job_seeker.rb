@@ -3,8 +3,9 @@ class JobSeeker < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-#  validates :social_name, :cpf, :phone, :cv, presence: true
+  has_one_attached :profile_picture
+
+  validates :social_name, :cpf, :phone, :cv, presence: true
   validates :cpf, :phone, uniqueness: true
 
-  has_one_attached :company_picture
 end

@@ -31,7 +31,7 @@ feature 'Job Seeker sign in' do
     end
 
     expect(current_path).to eq root_path
-    expect(page).to have_link 'Guilherme'
+    expect(page).to have_link 'Guilherme', href: job_seeker_profile_path(job_seeker)
     within('nav#principal') do
       expect(page).to have_link 'Sair', href: destroy_job_seeker_session_path
     end

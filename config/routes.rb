@@ -15,8 +15,9 @@ Rails.application.routes.draw do
   registrations: 'employees/registrations', 
   sessions: 'employees/sessions'}
   
-  devise_for :job_seekers, controllers: {
-  sessions: 'job_seeker/sessions'}
+  devise_for :job_seekers
 
-  get '/job_seekers/:id', to: 'job_seekers#show', as: 'job_seeker'
+  get '/job_seekers/profile/:id', 
+  to: 'job_seekers/profiles#show', 
+  as: 'job_seeker_profile'
 end
