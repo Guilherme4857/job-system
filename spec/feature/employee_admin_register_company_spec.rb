@@ -5,9 +5,9 @@ feature 'Employer admin register company' do
     employee =  Employee.create!(email: 'henrique@campuscode.com.br', password: '123456')  
     login_as employee, scope: :employee
     company = {name: 'Campus Code', cnpj: '33.222.111/0050-46', 
-               site: 'campuscode.com.br', company_history: 'Vem crescendo bastante', 
-               linkedin:'linkedin.com/school/campus-code/', facebook: 'facebook.com/CampusCodeBr/', 
-               twitter: 'twitter.com/campuscodebr', company_address: {public_place: 'Rua Cícero, 41', 
+               site: 'http://www.campuscode.com.br', company_history: 'Vem crescendo bastante', 
+               linkedin:'http://www.linkedin.com/school/campus-code/', facebook: 'http://www.facebook.com/CampusCodeBr/', 
+               twitter: 'http://www.twitter.com/campuscodebr', company_address: {public_place: 'Rua Cícero, 41', 
                district: 'Anhembi', city: 'São Paulo', zip_code: '41002-241'}}
 
     
@@ -39,9 +39,9 @@ feature 'Employer admin register company' do
       expect(page).to have_content 'CNPJ: 33.222.111/0050-46'
       expect(page).to have_link 'campuscode.com.br'
       expect(page).to have_content 'Redes Sociais'
-      expect(page).to have_link 'linkedin.com/school/campus-code/'
-      expect(page).to have_link 'facebook.com/CampusCodeBr/'
-      expect(page).to have_link 'twitter.com/campuscodebr'
+      expect(page).to have_link 'http://www.linkedin.com/school/campus-code/'
+      expect(page).to have_link 'http://www.facebook.com/CampusCodeBr/'
+      expect(page).to have_link 'http://www.twitter.com/campuscodebr'
       expect(page).to have_content 'Endereço da Empresa'
       expect(page).to have_content 'Logradouro: Rua Cícero, 41'
       expect(page).to have_content 'Bairro: Anhembi'

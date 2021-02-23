@@ -17,7 +17,11 @@ Rails.application.routes.draw do
   
   devise_for :job_seekers
 
-  get '/job_seekers/profile/:id', 
-  to: 'job_seekers/profiles#show', 
-  as: 'job_seeker_profile'
+  resources :job_seekers, only: %i[create new edit show update] do
+      post 'profile_pictures', on: :member  
+      get 'new_profile_picture', on: :member
+      get 'edit_profile_picture', on: :member
+      patch 'profile_picture', on: :member
+      delete 'destroy_profile_picture', on: :member
+  end
 end

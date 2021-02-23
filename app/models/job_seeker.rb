@@ -8,4 +8,14 @@ class JobSeeker < ApplicationRecord
   validates :social_name, :cpf, :phone, :cv, presence: true
   validates :cpf, :phone, uniqueness: true
 
+  def job_seeker_attributes(index)
+    attributes = [JobSeeker.human_attribute_name('email'), 
+                  JobSeeker.human_attribute_name('profile_picture'),
+                  JobSeeker.human_attribute_name('social_name'),
+                  JobSeeker.human_attribute_name('cpf'), 
+                  JobSeeker.human_attribute_name('phone'),
+                  JobSeeker.human_attribute_name('cv')]
+
+    attributes[index]
+  end
 end

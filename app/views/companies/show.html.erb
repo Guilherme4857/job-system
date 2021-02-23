@@ -11,12 +11,12 @@
 <div class='body' id='company'>
 <dt><%=@company.company_attributes(2)%>: <%=@company.cnpj%></dt>
 <dt>Número de funcionários: <%=@company.employees.count%></dt>
-<dt><%=@company.company_attributes(3)%>: <%=link_to @company.site, "http://www.#{@company.site}"%></dt>
+<dt><%=@company.company_attributes(3)%>: <%=link_to @company.site, @company.site%></dt>
 
 <h2><%=@company_social_webs%></h2>
 
 <%@company.company_social_webs.each do |csw|%>
-  <dt><%=link_to csw.address_web, "http://www.#{csw.address_web}"%></dt>
+  <dt><%=link_to csw.address_web, csw.address_web%></dt>
 <% end %>
 
 <h2><%=@company_address%></h2>
@@ -30,5 +30,6 @@
 
 <dt><%=@company.company_history%></dt>
 <div>
+<br>
 
 <dt><%=link_to 'Voltar', jobs_path%></dt>

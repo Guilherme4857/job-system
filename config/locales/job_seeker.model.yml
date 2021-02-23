@@ -6,6 +6,7 @@ pt-BR:
         other: Candidatos
     attributes:
       job_seeker:
+        profile_picture: Foto de Perfíl
         social_name: Nome Social
         cpf: CPF
         phone: Telefone

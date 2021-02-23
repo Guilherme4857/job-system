@@ -109,26 +109,34 @@ feature 'Visit see app' do
   scenario 'and company datails' do
     employee = Employee.create!(email: 'joao@campuscode.com', password: '123456')
     company = Company.create!(name: 'Campus Code', cnpj: '33.222.111/0050-46', 
-                              site: 'campuscode.com.br', company_history: 'Vem crescendo bastante')
-    social_web_one = CompanySocialWeb.create!(company: company, address_web: 'linkedin.com/school/campus-code/')
-    social_web_two = CompanySocialWeb.create!(company: company, address_web: 'facebook.com/CampusCodeBr/') 
-    social_web_three = CompanySocialWeb.create!(company: company, address_web:'twitter.com/campuscodebr')
+                              site: 'http://www.campuscode.com.br', company_history: 'Vem crescendo bastante')
+    social_web_one = CompanySocialWeb.create!(company: company, address_web: 'http://www.linkedin.com/school/campus-code/')
+    social_web_two = CompanySocialWeb.create!(company: company, address_web: 'http://www.facebook.com/CampusCodeBr/') 
+    social_web_three = CompanySocialWeb.create!(company: company, address_web:'http://www.twitter.com/campuscodebr')
     address = CompanyAddress.create!(company: company, public_place: 'Rua Cícero, 41', 
                                      district: 'Anhembi', city: 'São Paulo', zip_code: '41002-241')
+    company.company_picture.attach(io: File.open(
+    'app/assets/images/logomarcas/campuscode.png'), filename: 'campuscode.png')
     company.employees << employee
 
     visit company_path(company)
 
+    expect(page).to have_css('img[src*="campuscode.png"]')
     within('h1'){expect(page).to have_content 'Campus Code'}
     within('h2#header'){expect(page).to have_content 'Informações'}
     within('div#company') do
       expect(page).to have_content 'CNPJ: 33.222.111/0050-46'
       expect(page).to have_content 'Número de funcionários: 1'
-      expect(page).to have_link 'campuscode.com.br', href: "http://www.campuscode.com.br"
+      expect(page).to have_link 'http://www.campuscode.com.br', href: "http://www.campuscode.com.br"
       expect(page).to have_content 'Redes Sociais'
-      expect(page).to have_link 'linkedin.com/school/campus-code/', href: "http://www.linkedin.com/school/campus-code/"
-      expect(page).to have_link 'facebook.com/CampusCodeBr/', href: "http://www.facebook.com/CampusCodeBr/"
-      expect(page).to have_link 'twitter.com/campuscodebr', href: "http://www.twitter.com/campuscodebr"
+      expect(page).to have_link 'http://www.linkedin.com/school/campus-code/', 
+      href: "http://www.linkedin.com/school/campus-code/"
+      
+      expect(page).to have_link 'http://www.facebook.com/CampusCodeBr/', 
+      href: "http://www.facebook.com/CampusCodeBr/"
+      
+      expect(page).to have_link 'http://www.twitter.com/campuscodebr',
+       href: "http://www.twitter.com/campuscodebr"
       expect(page).to have_content 'Endereço da Empresa'
       expect(page).to have_content 'Logradouro: Rua Cícero, 41'
       expect(page).to have_content 'Bairro: Anhembi'
