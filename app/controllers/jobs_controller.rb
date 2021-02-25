@@ -1,6 +1,6 @@
 class JobsController < ApplicationController
   def index
-    @jobs = Job.all
+    @jobs = Job.all_enable
     @level = Level.model_name.human
     @company = Company.model_name.human
   end

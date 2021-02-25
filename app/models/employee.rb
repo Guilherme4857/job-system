@@ -1,7 +1,7 @@
 class Employee < ApplicationRecord
   enum status: {admin: 10, common: 0} 
   has_one :company_employee
-  has_one :company, through: :company_employee 
+  has_one :company, through: :company_employee
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,

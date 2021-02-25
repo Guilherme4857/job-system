@@ -72,7 +72,8 @@ feature 'Visit see app' do
     within('div#root'){expect(page).to have_link 'Voltar', href: root_path}
   end
   
-  scenario 'and all jobs' do
+  scenario 'and enable all jobs' do
+    employee =  Employee.create!(email: 'henrique@campuscode.com.br', password: '123456')  
     first_company = Company.create!(name: 'Campus Code', cnpj: '33.222.111/0050-46', 
                               site: 'campuscode.com.br', company_history: 'Vem crescendo bastante')
     second_company = Company.create!(name: 'Google', cnpj: '44.333.222/0111-020', 
@@ -86,7 +87,12 @@ feature 'Visit see app' do
                       description: 'Vai análisar sistema todo dia',
                       pay_scale: 'R$2000 - R$2600' , requirements: 'Saber programar',
                       expiration_date: '23/04/2024', job_openings: 2, levels:[level])
-
+    third_job = Job.create!(company: second_company, title: 'Engenheiro',
+                            description: 'Trabalhar com fiscalização de obras',
+                            pay_scale: 'R$5000 - R$7000' , requirements: 'Experiência no ramo',
+                            expiration_date: '30/10/2040', job_openings: 2, levels:[level])
+    third_job.disable!
+    
     visit root_path
     click_on 'Vagas Abertas'
 
@@ -102,6 +108,9 @@ feature 'Visit see app' do
       expect(page).to have_link 'Analista de sistemas', href: job_path(second_job)
       expect(page).to have_content 'Requisitos Obrigatórios: Saber programar'
       expect(page).to have_content 'Data Limite: 23/04/2024'
+      expect(page).not_to have_link 'Engenheiro', href: job_path(second_job)
+      expect(page).not_to have_content 'Requisitos Obrigatórios: Experiência no ramo'
+      expect(page).not_to have_content 'Data Limite: 30/10/2040'
     end
     expect(page).to have_link 'Voltar', href: root_path
   end

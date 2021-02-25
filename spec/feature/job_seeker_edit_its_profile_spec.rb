@@ -134,7 +134,7 @@ feature 'Job seeker edit its profile' do
       href: edit_profile_picture_job_seeker_path(job_seeker)
 
       expect(page).to have_link 'Tirar a foto',
-      href: destroy_profile_picture_job_seeker_pathccle(job_seeker)
+      href: destroy_profile_picture_job_seeker_path(job_seeker)
 
       expect(page).not_to have_link 'Colocar Foto' 
     end

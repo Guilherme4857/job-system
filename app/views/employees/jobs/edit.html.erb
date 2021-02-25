@@ -8,25 +8,21 @@
 
 <%=form_with model: [:employees, @job], method: :put do |f|%>
   <dt>
-  <%=f.label :title%>
+  <%=f.label :title%><br>
   <%=f.text_field :title%>
   </dt>
 
   <dt>
-  <%=f.label :description%>
-  <%=f.text_field :description%>
-  </dt>
-
-  <dt>
-  <%=f.label :pay_scale%>
+  <%=f.label :pay_scale%><br>
   <%=f.text_field :pay_scale%>
   </dt>
 
   <dt>
-  <%=f.label :requirements%>
+  <%=f.label :requirements%><br>
   <%=f.text_field :requirements%>
   </dt>
-
+ 
+  <br>
   <% if not @job.errors.any? %>
     <dt>  
     <%= f.collection_radio_buttons :level_ids, @level, :id, :name %>
@@ -34,14 +30,20 @@
   <% end %>
 
   <dt>
-  <%=f.label :expiration_date%>
-  <%=f.text_field :expiration_date%>
+  <%=f.label :expiration_date%><br>
+  <%=f.date_field :expiration_date%>
   </dt>
 
   <dt>
-  <%=f.label :job_openings%>
+  <%=f.label :job_openings%><br>
   <%=f.text_field :job_openings%>
+  </dt>
+
+  <dt>
+  <%=f.label :description%><br>
+  <%=f.text_area :description, size:'150x20'%>
   </dt>
 
   <dt><%=f.submit%></dt>
 <% end %>
+

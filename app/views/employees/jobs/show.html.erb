@@ -1,7 +1,12 @@
 <h1><%=@job.company.name%></h1>
 
 <div class='model' id='job'>
-<dt><%=@job.job_attributes(0)%>: <%=@job.title%></dt>
+<dt>
+<% if @job.disabled? %>
+  <%='[Desabilitado]'%>
+<% end %>
+<%=@job.job_attributes(0)%>: <%=@job.title%>
+</dt>
 <dt><%=@job.job_attributes(1)%>: <%=@job.description%></dt>
 <dt><%=@level%>: <%=@job.levels.first.name%></dt>
 <dt><%=@job.job_attributes(3)%>: <%=@job.requirements%></dt>
@@ -10,6 +15,12 @@
 <dt><%=@job.job_attributes(2)%>: <%=@job.pay_scale%></dt>
 <%=link_to 'Deletar Vaga', employees_job_path(@job), method: :delete%>
 <%=link_to 'Editar Vaga', edit_employees_job_path(@job)%>
+<% if @job.disabled?%>
+  <%=link_to 'Ativar Vaga', job_enable_employees_job_path(@job), method: :post%> 
+<% else %>
+  <%=link_to 'Desativar Vaga', job_disable_employees_job_path(@job), method: :post,
+  data:{confirm: "Tem certeza que quer apagar?"}%> 
+<% end %>
 </div>
 
-<%=link_to 'Voltar', employees_company_jobs_path(@company.id)%>
+<br><%=link_to 'Voltar', employees_company_jobs_path(@company.id)%>

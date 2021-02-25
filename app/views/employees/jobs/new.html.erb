@@ -23,8 +23,7 @@
   </dt>
   
   <br>
-  <% if not @job.errors.any? %>
-    
+  <% if not @job.errors.any? %>    
     <dt>  
     <%= f.collection_radio_buttons :level_ids, @level, :id, :name %>
     </dt>    
@@ -47,5 +46,5 @@
 
   <dt><%=f.submit%></dt>
 <% end %>
-
+<br>
 <%=link_to "Voltar", employees_company_path(current_employee.company)%>

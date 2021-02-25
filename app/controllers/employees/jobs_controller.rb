@@ -1,6 +1,7 @@
 class Employees::JobsController < ApplicationController
   before_action :authenticate_employee! 
-
+  before_action :enables
+  
   def index
     @company = find_company
     @jobs = @company.jobs
@@ -44,22 +45,37 @@ class Employees::JobsController < ApplicationController
   end
 
   def destroy
-    @job = Job.find(params[:id])
-    @job.destroy
+    job = Job.find(params[:id])
+    job.destroy
     redirect_to employees_company_jobs_path current_employee.company, 
     notice: 'Vaga deletada com sucesso'
   end
-end
+  
+  def job_disable
+    job = Job.find(params[:id])
+    job.disable!
+    redirect_to employees_company_job_path(current_employee.company, job)
+  end
+  
+  def job_enable
+    job = Job.find(params[:id])
+    job.job_disable.destroy
+    redirect_to employees_company_job_path(current_employee.company, job)
+  end
+  
+  private
 
+  def enables
+    jobs = Job.all_enable
+  end
 
-private
-
-def job_params
-  job = params.require(:job).permit(:company_id, :title, :description, :pay_scale, 
-                                    :requirements, :expiration_date, 
-                                    :job_openings, :level_ids)
-end
-
-def find_company
-  company = current_employee.company
+  def job_params
+    job = params.require(:job).permit(:company_id, :title, :description, :pay_scale, 
+                                      :requirements, :expiration_date, 
+                                      :job_openings, :level_ids)
+  end
+  
+  def find_company
+    company = current_employee.company
+  end
 end

@@ -67,12 +67,17 @@ feature 'Employee see app' do
     company = Company.create!(name: 'Campus Code', cnpj: '33.222.111/0050-46', 
                               site: 'campuscode.com', company_history: 'Vem crescendo bastante')
     level = Level.create!(name: 'júnior')
-    job = Job.create!(company: company, title: 'Desenvolvedor Ruby',
+    first_job = Job.create!(company: company, title: 'Desenvolvedor Ruby',
                       description: 'Vai desenvolver aplicações utilizando ruby',
                       pay_scale: 'R$2000 - R$2600' , requirements: 'Saber ruby',
                       expiration_date: '23/04/2024', job_openings: 4, levels:[level])
+    second_job = Job.create!(company: company, title: 'Analista de sistemas',
+                             description: 'Vai análisar sistema todo dia',
+                             pay_scale: 'R$2000 - R$2600' , requirements: 'Saber programar',
+                             expiration_date: '23/04/2024', job_openings: 2, levels:[level])
     address = CompanyAddress.create!(company: company, public_place: 'Rua Cícero, 41', 
                                      district: 'Anhembi', city: 'São Paulo', zip_code: '41002-241')
+    second_job.disable!
     employee.company = company
 
     visit employees_company_path(company)
@@ -81,15 +86,21 @@ feature 'Employee see app' do
     expect(current_path).to eq employees_company_jobs_path(company)
     within('h1'){expect(page).to have_content "Campus Code Vagas Abertas"}
     within('div#info') do
-      expect(page).to have_link 'Desenvolvedor Ruby', href: employees_company_job_path(job, company)
+      expect(page).to have_content "Título:"
+      expect(page).to have_link 'Desenvolvedor Ruby', href: employees_company_job_path(company, first_job)
       expect(page).to have_content "Nível: júnior"
       expect(page).to have_content "Requisitos Obrigatórios: Saber ruby"
       expect(page).to have_content "Data Limite: 23/04/2024"
+      expect(page).to have_content "[Desabilitado] Título:"
+      expect(page).to have_link 'Analista de sistemas', href: employees_company_job_path(company, second_job)
+      expect(page).to have_content "Nível: júnior"
+      expect(page).to have_content 'Requisitos Obrigatórios: Saber programar'
+      expect(page).to have_content 'Data Limite: 23/04/2024'
     end
     expect(page).to have_link  'Voltar', href: employees_company_path(company)
   end
 
-  scenario 'details aboult job' do
+  scenario 'details aboult registered job' do
     employee =  Employee.create!(email: 'henrique@campuscode.com.br', password: '123456')  
     login_as employee, scope: :employee
     company = Company.create!(name: 'Campus Code', cnpj: '33.222.111/0050-46', 
@@ -114,10 +125,39 @@ feature 'Employee see app' do
       expect(page).to have_content "Faixa Salarial: R$2000 - R$2600"      
       expect(page).to have_link 'Deletar Vaga'
       expect(page).to have_link 'Editar Vaga'
+      expect(page).to have_link 'Desativar Vaga', href: job_disable_employees_job_path(job)
     end
-    expect(page).to have_link "Voltar", href: employees_company_jobs_path(company)
+    expect(page).to have_link "Voltar", href: employees_company_jobs_path(company)    
+  end
 
-    
+  scenario 'details aboult disable jobs' do
+    employee =  Employee.create!(email: 'henrique@campuscode.com.br', password: '123456')  
+    login_as employee, scope: :employee
+    company = Company.create!(name: 'Campus Code', cnpj: '33.222.111/0050-46', 
+                              site: 'campuscode.com', company_history: 'Vem crescendo bastante')
+    level = Level.create!(name: 'júnior')
+    job = Job.create!(company: company, title: 'Desenvolvedor Ruby',
+                      description: 'Vai desenvolver aplicações utilizando ruby',
+                      pay_scale: 'R$2000 - R$2600' , requirements: 'Saber ruby',
+                      expiration_date: '23/04/2024', job_openings: 4, levels:[level])
+    employee.company = company
+    job.disable!
+
+    visit employees_company_job_path(company, job)
+
+    within('h1'){expect(page).to have_content "Campus Code"}
+    within('div#job') do
+      expect(page).to have_content "[Desabilitado] Título: Desenvolvedor Ruby"
+      expect(page).to have_content "Descrição Detalhada: Vai desenvolver aplicações utilizando ruby"
+      expect(page).to have_content "Nível: júnior"
+      expect(page).to have_content "Requisitos Obrigatórios: Saber ruby"
+      expect(page).to have_content "Total de Vagas: 4"
+      expect(page).to have_content "Data Limite: 23/04/2024"
+      expect(page).to have_content "Faixa Salarial: R$2000 - R$2600"      
+      expect(page).to have_link 'Deletar Vaga'
+      expect(page).to have_link 'Editar Vaga'
+    end
+    expect(page).to have_link "Voltar", href: employees_company_jobs_path(company)    
   end
 
   scenario 'without registered job' do

@@ -7,7 +7,13 @@
 <% else %>
   <div class='job' id='info'>
     <%@jobs.each do |job| %>
-      <dt><%=job.job_attributes(0)%>: <%=link_to job.title, employees_company_job_path(job, job.company)%></dt>
+      <dt>
+      <% if job.disabled? %>
+        <%='[Desabilitado]'%>
+      <% end %>
+      <%=job.job_attributes(0)%>: 
+      <%=link_to job.title, employees_company_job_path(job.company, job)%>
+      </dt>
       <dt><%=@level%>: <%=job.levels.first.name%></dt>
       <dt><%=job.job_attributes(3)%>: <%=job.requirements%></dt>
       <dt><%=job.job_attributes(4)%>: <%=localize job.expiration_date%></dt>

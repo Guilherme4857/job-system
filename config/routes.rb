@@ -9,7 +9,10 @@ Rails.application.routes.draw do
     resources :companies, only: %i[show new create] do
       resources :jobs, only: %i[index create new show]    
     end
-    resources :jobs, only: %i[edit update destroy]
+    resources :jobs, only: %i[edit update destroy] do
+      post 'job_disable', on: :member
+      post 'job_enable', on: :member
+    end
   end
   devise_for :employees, controllers: {
   registrations: 'employees/registrations', 
