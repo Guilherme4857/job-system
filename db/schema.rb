@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_25_003343) do
+ActiveRecord::Schema.define(version: 2021_02_25_120605) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -38,6 +38,15 @@ ActiveRecord::Schema.define(version: 2021_02_25_003343) do
     t.integer "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "applied_job_seekers", force: :cascade do |t|
+    t.integer "job_seeker_id", null: false
+    t.integer "job_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["job_id"], name: "index_applied_job_seekers_on_job_id"
+    t.index ["job_seeker_id"], name: "index_applied_job_seekers_on_job_seeker_id"
   end
 
   create_table "companies", force: :cascade do |t|
@@ -147,6 +156,8 @@ ActiveRecord::Schema.define(version: 2021_02_25_003343) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "applied_job_seekers", "job_seekers"
+  add_foreign_key "applied_job_seekers", "jobs"
   add_foreign_key "company_addresses", "companies"
   add_foreign_key "company_employees", "companies"
   add_foreign_key "company_employees", "employees"

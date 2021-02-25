@@ -59,7 +59,7 @@ class Employees::JobsController < ApplicationController
   
   def job_enable
     job = Job.find(params[:id])
-    job.job_disable.destroy
+    job.enable!
     redirect_to employees_company_job_path(current_employee.company, job)
   end
   

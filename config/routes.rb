@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
   root to: 'home#index'
   get 'search', to: 'home#search'
-  resources :jobs, only: %i[index show]
+  resources :jobs, only: %i[index show] do
+    post 'apply_to', on: :member
+    post 'unapply_to', on: :member
+  end
   resources :companies, only: %i[show]
 
   namespace 'employees' do

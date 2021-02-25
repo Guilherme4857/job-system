@@ -1,6 +1,9 @@
 <h1><%=@job.company.name%></h1>
 
 <div class='model' id='job'>
+<% if @job.expiration_date < Time.now.to_date%>
+  <dt>Prazo para candidatura expirado</dt>
+<% end %>
 <dt>
 <% if @job.disabled? %>
   <%='[Desabilitado]'%>
@@ -13,13 +16,14 @@
 <dt><%=@job.job_attributes(5)%>: <%=@job.job_openings%></dt>
 <dt><%=@job.job_attributes(4)%>: <%=localize @job.expiration_date%></dt>
 <dt><%=@job.job_attributes(2)%>: <%=@job.pay_scale%></dt>
-<%=link_to 'Deletar Vaga', employees_job_path(@job), method: :delete%>
+<%=link_to 'Deletar Vaga', employees_job_path(@job), method: :delete,
+
+data:{confirm: "Tem certeza que quer apagar?"}%>
 <%=link_to 'Editar Vaga', edit_employees_job_path(@job)%>
 <% if @job.disabled?%>
   <%=link_to 'Ativar Vaga', job_enable_employees_job_path(@job), method: :post%> 
 <% else %>
-  <%=link_to 'Desativar Vaga', job_disable_employees_job_path(@job), method: :post,
-  data:{confirm: "Tem certeza que quer apagar?"}%> 
+  <%=link_to 'Desativar Vaga', job_disable_employees_job_path(@job), method: :post%> 
 <% end %>
 </div>
 

@@ -41,8 +41,8 @@ feature 'Employer edit jobs' do
 
     login_as employee, scope: :employee
   
-    edited_job = {title: 'Desenvolvedor Ruby', description: 'Vai desenvolver 
-                  aplicações utilizando ruby', pay_scale: 'R$2000 - R$2600' ,
+    edited_job = {title: 'Desenvolvedor Ruby', pay_scale: 'R$2000 - R$2600',
+                  description: 'Vai desenvolver aplicações utilizando ruby', 
                   requirements: 'Saber ruby', expiration_date: '23/04/2024',
                   job_openings: 4}
 
@@ -85,7 +85,8 @@ feature 'Employer edit jobs' do
                       pay_scale: 'R$2000 - R$2600' , requirements: 'Saber java',
                       expiration_date: '23/04/2024', job_openings: 4, levels:[level])
     login_as employee, scope: :employee
- 
+    employee.company = company
+
     visit edit_employees_job_path job
     
     fill_in 'Título', with: ''
@@ -103,5 +104,6 @@ feature 'Employer edit jobs' do
     expect(page).to have_content "Total de Vagas não pode ficar em branco"
     expect(page).to have_content "Data Limite não pode ficar em branco"
     expect(page).to have_content "Faixa Salarial não pode ficar em branco"
+    expect(page).to have_link 'Voltar', href: employees_company_job_path(company, job)
   end
 end

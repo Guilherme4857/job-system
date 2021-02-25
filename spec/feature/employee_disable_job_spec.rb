@@ -139,6 +139,7 @@ feature 'Employee disable job' do
     expect(current_path).to eq employees_company_job_path(job, company)
     within('h1'){expect(page).to have_content "Campus Code"}
     within('div#job') do
+      expect(page).to have_content "Prazo para candidatura expirado"
       expect(page).to have_content "[Desabilitado] Título: Desenvolvedor Ruby"
       expect(page).to have_content "Descrição Detalhada: Vai desenvolver aplicações utilizando ruby"
       expect(page).to have_content "Nível: júnior"

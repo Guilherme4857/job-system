@@ -1,6 +1,8 @@
 class Job < ApplicationRecord
   has_many :job_levels, dependent: :destroy
   has_many :levels, through: :job_levels, dependent: :destroy
+  has_many :applied_job_seekers, dependent: :destroy
+  has_many :job_seekers, through: :applied_job_seekers
   has_one :job_disable, dependent: :destroy
   belongs_to :company
 
@@ -20,10 +22,14 @@ class Job < ApplicationRecord
     JobDisable.create!(job: self)
   end
 
+  def enable!
+    job_disable = JobDisable.find(id)
+    job_disable.destroy
+  end
+
   def disabled?
     if JobDisable.any?
-      jobs_disabled = JobDisable.pluck(:job_id)
-      if jobs_disabled.include? id
+      if JobDisable.pluck(:job_id).include? id
         true
       else
         false
@@ -37,7 +43,7 @@ class Job < ApplicationRecord
     enables = []
     Job.all.map do |job|
       if not job.disabled?
-        if job.expiration_date <= Time.now.to_date
+        if job.expiration_date < Time.now.to_date
            job.disable!
         else
           enables << job

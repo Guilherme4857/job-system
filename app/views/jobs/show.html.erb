@@ -3,6 +3,11 @@
 </h1>
 
 <div class='block' id='job'>
+<% if job_seeker_signed_in? %>
+  <% if current_job_seeker.applied_to?(@job) %>
+    <dt>Já está candidatado</dt><br>  
+  <% end %>  
+<% end %>
 <dt><%=@job.job_attributes(0)%>: <%=@job.title%></dt>
 <dt><%=@job.job_attributes(1)%>: <%=@job.description%></dt>
 <dt><%=@level%>: <%=@job.levels.first.name%></dt>
@@ -10,6 +15,15 @@
 <dt><%=@job.job_attributes(5)%>: <%=@job.job_openings%></dt>
 <dt><%=@job.job_attributes(4)%>: <%=localize @job.expiration_date%></dt>
 <dt><%=@job.job_attributes(2)%>: <%=@job.pay_scale%></dt>
+<% if job_seeker_signed_in? %>
+  <% if current_job_seeker.applied_to?(@job)%>
+    <dt><%=link_to 'Cancelar candidatura', unapply_to_job_path(@job), method: :post%>
+  <% else %>
+    <dt><%=link_to 'Candidatar-se a vaga', apply_to_job_path(@job), method: :post%>
+  <% end %>
+<% else %>
+  <dt><%=link_to 'Candidatar-se a vaga', apply_to_job_path(@job), method: :post%>
+<% end %>
 </div>
 
 <br><%=link_to 'Voltar', jobs_path%>

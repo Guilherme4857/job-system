@@ -72,7 +72,7 @@ feature 'Visit see app' do
     within('div#root'){expect(page).to have_link 'Voltar', href: root_path}
   end
   
-  scenario 'and enable all jobs' do
+  scenario 'and all enable jobs' do
     employee =  Employee.create!(email: 'henrique@campuscode.com.br', password: '123456')  
     first_company = Company.create!(name: 'Campus Code', cnpj: '33.222.111/0050-46', 
                               site: 'campuscode.com.br', company_history: 'Vem crescendo bastante')
