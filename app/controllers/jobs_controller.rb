@@ -17,4 +17,10 @@ class JobsController < ApplicationController
     current_job_seeker.apply_to!(job)
     redirect_to job_path(job), notice: 'Candidatura feita com sucesso'
   end
+
+  def unapply_to
+    job = Job.find(params[:id])
+    current_job_seeker.unapply_to!(job)
+    redirect_to job_path(job), notice: 'Candidatura desfeita com sucesso'
+  end
 end
