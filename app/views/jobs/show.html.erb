@@ -8,13 +8,13 @@
     <dt>Já está candidatado</dt><br>  
   <% end %>  
 <% end %>
-<dt><%=@job.job_attributes(0)%>: <%=@job.title%></dt>
-<dt><%=@job.job_attributes(1)%>: <%=@job.description%></dt>
+<dt><%=@title%>: <%=@job.title%></dt>
+<dt><%=@description%>: <%=@job.description%></dt>
 <dt><%=@level%>: <%=@job.levels.first.name%></dt>
-<dt><%=@job.job_attributes(3)%>: <%=@job.requirements%></dt>
-<dt><%=@job.job_attributes(5)%>: <%=@job.job_openings%></dt>
-<dt><%=@job.job_attributes(4)%>: <%=localize @job.expiration_date%></dt>
-<dt><%=@job.job_attributes(2)%>: <%=@job.pay_scale%></dt>
+<dt><%=@requirements%>: <%=@job.requirements%></dt>
+<dt><%=@job_openings%>: <%=@job.job_openings%></dt>
+<dt><%=@expiration_date%>: <%=localize @job.expiration_date%></dt>
+<dt><%=@pay_scale%>: <%=@job.pay_scale%></dt>
 <% if job_seeker_signed_in? %>
   <% if current_job_seeker.applied_to?(@job)%>
     <dt><%=link_to 'Cancelar candidatura', unapply_to_job_path(@job), method: :post%>

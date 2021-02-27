@@ -26,13 +26,21 @@ class Employees::JobSeekersController < ApplicationController
   end
 
   def job_seeker_attributes_names
-    @social_name = JobSeeker.human_attribute_name('social_name')
     @email = JobSeeker.human_attribute_name('email')
+    @profile_picture = JobSeeker.human_attribute_name('profile_picture')
+    @social_name = JobSeeker.human_attribute_name('social_name')
+    @cpf = JobSeeker.human_attribute_name('cpf')
     @phone = JobSeeker.human_attribute_name('phone')
+    @cv = JobSeeker.human_attribute_name('cv')
   end
   
   def job_attributes_names
     @title = Job.human_attribute_name('title')
+    @description = Job.human_attribute_name('description')
+    @pay_scale = Job.human_attribute_name('pay_scale')
+    @requirements = Job.human_attribute_name('requirements')
+    @expiration_date = Job.human_attribute_name('expiration_date')
+    @job_openings = Job.human_attribute_name('job_openings')
     @level = Job.human_attribute_name('levels')
   end
 end

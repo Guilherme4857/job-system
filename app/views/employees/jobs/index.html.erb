@@ -14,12 +14,12 @@
       <% if job.disabled? %>
         <%='[Desabilitado]'%>
       <% end %>
-      <%=job.job_attributes(0)%>: 
+      <%=@title%>: 
       <%=link_to job.title, employees_company_job_path(job.company, job)%>
       </dt>
       <dt><%=@level%>: <%=job.levels.first.name%></dt>
-      <dt><%=job.job_attributes(3)%>: <%=job.requirements%></dt>
-      <dt><%=job.job_attributes(4)%>: <%=localize job.expiration_date%></dt>
+      <dt><%=@requirements%>: <%=job.requirements%></dt>
+      <dt><%=@expiration_date%>: <%=localize job.expiration_date%></dt>
       <hr>
     <% end %>
   </div>  

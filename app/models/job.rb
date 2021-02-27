@@ -10,14 +10,6 @@ class Job < ApplicationRecord
             :job_openings, :levels, presence: true
   validates_associated :levels
 
-  def job_attributes(index)
-    attributes = [Job.human_attribute_name('title'), Job.human_attribute_name('description'),
-    Job.human_attribute_name('pay_scale'), Job.human_attribute_name('requirements'),
-    Job.human_attribute_name('expiration_date'), Job.human_attribute_name('job_openings')]
-
-    attributes[index]
-  end
-
   def disable!
     JobDisable.create!(job: self)
   end

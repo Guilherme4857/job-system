@@ -18,8 +18,8 @@
 
 <div class='company' id='info'>
 
-<dt><%=@company.company_attributes(2)%>: <%=@company.cnpj%></dt>
-<dt><%=@company.company_attributes(3)%>: <%=link_to @company.site, @company.site%></dt>
+<dt><%=@cnpj%>: <%=@company.cnpj%></dt>
+<dt><%=@site%>: <%=link_to @company.site, @company.site%></dt>
 
 <h3><%=@social_webs%></h3>
 
@@ -30,26 +30,26 @@
 <h3><%=@address%></h3>
 
 <dt>
-<%=@company.company_address.company_address_attributes(0)%>:
+<%=@public_place%>:
 <%=@company.company_address.public_place%>
 </dt>
 
 <dt>
-<%=@company.company_address.company_address_attributes(1)%>:
+<%=@district%>:
 <%=@company.company_address.district%>
 </dt>
 
 <dt>
-<%=@company.company_address.company_address_attributes(2)%>:
+<%=@city%>:
 <%=@company.company_address.city%>
 </dt>
 
 <dt>
-<%=@company.company_address.company_address_attributes(3)%>:
+<%=@zip_code%>:
 <%=@company.company_address.zip_code%>
 </dt>
 
-<h3><%=@company.company_attributes(4)%></h3>
+<h3><%=@company_history%></h3>
 <dt><%=@company.company_history%></dt>
 </div>
 <br>

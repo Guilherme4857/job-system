@@ -8,14 +8,4 @@ class Company < ApplicationRecord
   accepts_nested_attributes_for :company_address 
   accepts_nested_attributes_for :company_social_webs
 
-
-  def company_attributes(index)
-    attributes = [Company.human_attribute_name('name'),
-                  Company.human_attribute_name('company_picture'),
-                  Company.human_attribute_name('cnpj'), 
-                  Company.human_attribute_name('site'), 
-                  Company.human_attribute_name('company_history')]
-            
-    attributes[index]
-  end
 end

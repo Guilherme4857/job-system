@@ -7,11 +7,11 @@
     <%company.jobs.each do |job|%>
       <% if not job.disabled? %>
         <dt>
-        <%=job.job_attributes(0)%>: 
+        <%=@title%>: 
         <%=link_to job.title, job_path(job)%>
         </dt>
-        <dt><%=job.job_attributes(3)%>: <%=job.requirements%></dt>
-        <dt><%=job.job_attributes(4)%>: <%=localize job.expiration_date%></dt>
+        <dt><%=@requirements%>: <%=job.requirements%></dt>
+        <dt><%=@expiration_date%>: <%=localize job.expiration_date%></dt>
       <% else %>
         <%='Nenhum resultado encontrado'%>
         <br>
@@ -24,15 +24,15 @@
   <%@jobs.each do |job|%>
       <% if not job.disabled? %>
       <dt>
-      <%=job.company.company_attributes(0)%>: 
+      <%=@name%>: 
       <%=link_to job.company.name, company_path(job.company)%>
       </dt>
       <dt>
-      <%=job.job_attributes(0)%>: 
+      <%=@title%>: 
       <%=link_to job.title, job_path(job)%>
       </dt>
-      <dt><%=job.job_attributes(3)%>: <%=job.requirements%></dt>
-      <dt><%=job.job_attributes(4)%>: <%=localize job.expiration_date%></dt>
+      <dt><%=@requirements%>: <%=job.requirements%></dt>
+      <dt><%=@expiration_date%>: <%=localize job.expiration_date%></dt>
     <% else %>
       <%='Nenhum resultado encontrado'%>
       <br>

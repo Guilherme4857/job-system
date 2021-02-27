@@ -1,5 +1,5 @@
 class JobSeekersController < ApplicationController
-  before_action :authenticate_job_seeker!
+  before_action :authenticate_job_seeker!, :job_seeker_attributes_names
 
   def index
     applied_job_seekers = all_applied_job_seekers(current_job_seeker.company)
@@ -65,5 +65,14 @@ class JobSeekersController < ApplicationController
 
   def profile_picture_params
     params.require(:job_seeker).permit(:profile_picture)
+  end
+
+  def job_seeker_attributes_names
+    @email = JobSeeker.human_attribute_name('email')
+    @profile_picture = JobSeeker.human_attribute_name('profile_picture')
+    @social_name = JobSeeker.human_attribute_name('social_name')
+    @cpf = JobSeeker.human_attribute_name('cpf')
+    @phone = JobSeeker.human_attribute_name('phone')
+    @cv = JobSeeker.human_attribute_name('cv')
   end
 end

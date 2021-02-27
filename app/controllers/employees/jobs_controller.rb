@@ -1,6 +1,5 @@
 class Employees::JobsController < ApplicationController
-  before_action :authenticate_employee! 
-  before_action :enables
+  before_action :authenticate_employee!, :enables, :job_attributes_names
   
   def index
     @company = find_company
@@ -26,7 +25,6 @@ class Employees::JobsController < ApplicationController
   def show
     @company = find_company
     @job = Job.find(params[:id])
-    @level = Level.model_name.human
   end
 
   def edit
@@ -77,5 +75,15 @@ class Employees::JobsController < ApplicationController
   
   def find_company
     company = current_employee.company
+  end
+
+  def job_attributes_names
+    @title = Job.human_attribute_name('title')
+    @description = Job.human_attribute_name('description')
+    @pay_scale = Job.human_attribute_name('pay_scale')
+    @requirements = Job.human_attribute_name('requirements')
+    @expiration_date = Job.human_attribute_name('expiration_date')
+    @job_openings = Job.human_attribute_name('job_openings')
+    @level = Job.human_attribute_name('levels')
   end
 end
