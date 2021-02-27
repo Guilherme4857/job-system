@@ -7,6 +7,9 @@
 <% else %>
   <div class='job' id='info'>
     <%@jobs.each do |job| %>
+      <% if job.expiration_date < Time.now.to_date%>
+        <dt>Prazo para candidatura expirado</dt>
+      <% end %>
       <dt>
       <% if job.disabled? %>
         <%='[Desabilitado]'%>

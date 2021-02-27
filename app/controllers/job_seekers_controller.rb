@@ -1,4 +1,10 @@
 class JobSeekersController < ApplicationController
+  before_action :authenticate_job_seeker!
+
+  def index
+    applied_job_seekers = all_applied_job_seekers(current_job_seeker.company)
+  end
+
   def show
     @job_seeker = JobSeeker.find(params[:id])
   end
@@ -49,6 +55,8 @@ class JobSeekersController < ApplicationController
 
     redirect_to job_seeker_path(@job_seeker)
   end
+
+
   private
 
   def job_seeker_params

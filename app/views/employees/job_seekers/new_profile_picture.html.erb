@@ -1,0 +1,9 @@
+<h1 class='picture' id='header'>Insira sua foto</h1>
+
+<%=form_with url: profile_pictures_job_seeker_path, model: @job_seeker, method: :post do |f|%>
+  <dt>
+  <%=f.label :profile_picture%><br>
+  <%=f.file_field :profile_picture%>
+  </dt><br>
+  <%=f.submit 'Adicionar foto'%>
+<% end %>

@@ -23,7 +23,6 @@ class Job < ApplicationRecord
   end
 
   def enable!
-    job_disable = JobDisable.find(id)
     job_disable.destroy
   end
 

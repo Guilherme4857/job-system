@@ -35,3 +35,27 @@
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+
+#Ignore some files
+yarn.lock
+testdisk.log
+.gitattributes
+.browserslistrc
+.ruby-version
+Rakefile
+**/.keep
+babel.config.js
+package.json
+postcss.config.js
+
+#igonore some directory
+vendor/
+app/assets/config/*
+app/javascript/*
+app/assets/images/logomarcas/*
+config/webpack/*
+bin/
+lib/
+log/
+public/
+tmp/

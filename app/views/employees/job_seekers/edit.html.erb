@@ -1,0 +1,30 @@
+<h1 class='Profile' id='edit'>Altere suas informações</h1>
+
+<%=form_with model: @job_seeker do |f|%>
+  <dt>
+  <%=f.label :email%><br>
+  <%=f.email_field :email%>
+  </dt>
+
+  <dt>
+  <%=f.label :social_name%><br>
+  <%=f.text_field :social_name%>
+  </dt>
+
+  <dt>
+  <%=f.label :cpf%><br>
+  <%=f.text_field :cpf%>
+  </dt>
+
+  <dt>
+  <%=f.label :phone%><br>
+  <%=f.telephone_field :phone%>
+  </dt>
+
+  <dt>
+  <%=f.label :cv%><br>
+  <%=f.text_area :cv, size:"150x20"%>
+  </dt>
+
+  <dt><%=f.submit 'Atualizar Perfíl'%></dt>
+<% end %>

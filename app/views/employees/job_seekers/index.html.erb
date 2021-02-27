@@ -1,0 +1,17 @@
+<h1 class='jobseekers' id='header'><%=@job_seeker_model_name%><h1>
+
+<div class='jobseekers' id='body'>
+  <% if @applied_job_seekers == []%>
+    Nenhum candidato às vagas  
+  <% end %>
+
+  <%@applied_job_seekers.each do |job_seeker| %>
+    <%='Pendente de avaliação'%>
+    <%=@social_name%>: <%=link_to job_seeker.social_name, employees_company_job_seeker_path(current_employee.company, job_seeker)%>
+    <%=@email%>: <%=job_seeker.email%>
+    <%=@phone%>: <%=job_seeker.phone%>
+    <%=%>
+  <% end %>%>
+<div>
+
+<dt><%=link_to 'Voltar', employees_company_path(current_employee.company)%></dt>

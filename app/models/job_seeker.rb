@@ -44,7 +44,10 @@ class JobSeeker < ApplicationRecord
     AppliedJobSeeker.all.each{|ajs|ajs.destroy if (ajs.job_seeker == self) && (ajs.job == job)}
   end
 
-  def self.all_applied_job_seekers
-    
+  def self.all_applied_job_seekers(company)
+    applied_job_seekers = []
+    all.each{|job_seeker|job_seeker.jobs.each{|job|
+    applied_job_seekers << job_seeker if job.company == company}}
+    applied_job_seekers
   end
 end
