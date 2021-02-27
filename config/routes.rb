@@ -25,8 +25,10 @@ Rails.application.routes.draw do
   namespace 'employees' do
     root to: 'home#index'
     resources :companies, only: %i[show new create] do
-      resources :jobs, only: %i[index create new show]    
-      resources :job_seekers, only: %i[index show]
+      resources :job_seekers, only: %i[index]
+      resources :jobs, only: %i[index create new show] do
+        resources :job_seekers, only: %i[show]
+      end    
     end
     resources :jobs, only: %i[edit update destroy] do
       post 'job_disable', on: :member

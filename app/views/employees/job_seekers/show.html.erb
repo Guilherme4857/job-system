@@ -3,16 +3,6 @@
 <% if @job_seeker.profile_picture.attached? %>
   <dt><%=image_tag @job_seeker.profile_picture%></dt>
   <br>
-
-  <dt>
-  <%=link_to 'Trocar a foto', edit_profile_picture_job_seeker_path(@job_seeker)%>
-  <%=link_to 'Tirar a foto', destroy_profile_picture_job_seeker_path(@job_seeker), 
-  method: :delete, data: {confirm: "Tem certeza?"}%>
-  </dt><br>
-<% else %>
-  <dt>
-  <%=link_to 'Colocar Foto', new_profile_picture_job_seeker_path(@job_seeker)%>  
-  </dt>
 <% end %>
 </header>
 
@@ -25,6 +15,14 @@
    <dt><%=@job_seeker.job_seeker_attributes(4)%>: <%=@job_seeker.phone%></dt><br>
    <dt><%=@job_seeker.job_seeker_attributes(5)%></dt><br>
    <dt><%=@job_seeker.cv%></dt><br>
-   <dt><%=link_to 'Alterar informações', edit_job_seeker_path(@job_seeker)%></dt>
+</div>
+
+<h1 class='jobs' id='header'><%="Vagas que está concorrendo"%></h1>
+
+<div class='jobs' id='informations'>
+  <%@job_seeker.jobs.each do |job|%>
+    <dt><%=@title%>: <%=link_to job.title, employees_company_job_path(job.company, job)%><dt> 
+    <dt><%=@level%>: <%=job.levels.first.name%><dt><br> 
+  <% end %> 
 </div><br>
 <dt><%=link_to 'Voltar', employees_company_job_seekers_path(current_employee.company)%></dt>

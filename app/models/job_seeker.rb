@@ -47,7 +47,7 @@ class JobSeeker < ApplicationRecord
   def self.all_applied_job_seekers(company)
     applied_job_seekers = []
     all.each{|job_seeker|job_seeker.jobs.each{|job|
-    applied_job_seekers << job_seeker if job.company == company}}
+    applied_job_seekers << job_seeker if (job.company == company) && (not applied_job_seekers.include? job_seeker)}}
     applied_job_seekers
   end
 end

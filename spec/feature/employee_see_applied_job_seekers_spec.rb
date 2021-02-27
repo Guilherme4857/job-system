@@ -72,11 +72,11 @@ feature 'Employee see applied job seekers' do
       expect(page).to have_content 'Pendente de avaliação', count: 2
       expect(page).to have_content 'Nome Social: ', count: 2
       expect(page).to have_link 'Guilherme', 
-                                 href: employees_company_job_seeker_path(company, first_job_seeker)
+                                 href: employees_company_job_job_seeker_path(company, job, first_job_seeker)
       expect(page).to have_content 'E-mail: guilherme@gmail.com'
       expect(page).to have_content 'Telefone: +55 11 98904-8658'
       expect(page).to have_link 'Vanessa', 
-                                 href: employees_company_job_seeker_path(company, third_job_seeker)
+                                 href: employees_company_job_job_seeker_path(company, job, third_job_seeker)
       expect(page).to have_content 'E-mail: vanessa@gmail.com'
       expect(page).to have_content 'Telefone: +55 11 99388-9300'
       expect(page).not_to have_content 'Nenhum candidato às vagas'
@@ -89,10 +89,18 @@ feature 'Employee see applied job seekers' do
     company = Company.create!(name: 'Campus Code', cnpj: '33.222.111/0050-46', 
                               site: 'campuscode.com.br', company_history: 'Vem crescendo bastante')    
     level = Level.create!(name: 'júnior')
-    job = Job.create!(company: company, title: 'Desenvolvedor Ruby', 
+    first_job = Job.create!(company: company, title: 'Desenvolvedor Ruby', 
                       description: 'Vai desenvolver aplicações utilizando ruby',
                       pay_scale: 'R$2000 - R$2600' , requirements: 'Saber ruby', 
                       expiration_date: '23/04/2024',job_openings: 4, levels:[level])
+    second_job = Job.create!(company: company, title: 'Analista de software', 
+                              description: 'Vai analisar bastante software',
+                              pay_scale: 'R$2000 - R$3000' , requirements: 'Experiêcia no ramo', 
+                              expiration_date: '25/06/2025', job_openings: 4, levels:[level])
+    third_job = Job.create!(company: company, title: 'Desenvolvedor C#', 
+                            description: 'Vai desenvolver aplicações utilizando C#',
+                            pay_scale: 'R$2000 - R$2600' , requirements: 'Saber C#', 
+                            expiration_date: '23/03/2030',job_openings: 4, levels:[level])
     social_web_one = CompanySocialWeb.create!(company: company, 
                                               address_web: 'http://www.linkedin.com/school/campus-code/')
     social_web_two = CompanySocialWeb.create!(company: company, 
@@ -105,16 +113,18 @@ feature 'Employee see applied job seekers' do
                                    social_name: 'Guilherme', cpf:'22.333.444/5', 
                                    phone: '+55 11 98904-8658', 
                                    cv: 'Experiêcia com desenvolvimento de software.')
-    job_seeker.apply_to!(job)
+    job_seeker.apply_to!(first_job)
+    job_seeker.apply_to!(second_job)
+    job_seeker.reload
     employee.company = company
     job_seeker.profile_picture.attach(io: File.open(
-    'app/assets/images/logomarcas/konduto.png'), filename: 'konduto.png')
+                                      'app/assets/images/logomarcas/konduto.png'), filename: 'konduto.png')
     login_as employee, scope: :employee
 
     visit employees_company_job_seekers_path(company)
     click_on 'Guilherme'
     
-    expect(current_path).to eq employees_company_job_seeker_path(company, job_seeker)
+    expect(current_path).to eq employees_company_job_job_seeker_path(company, first_job, job_seeker)
     within('header#pendi'){expect(page).to have_content 'Pendente de avaliação'}
     expect(page).to have_css('img[src*="konduto.png"]')
     within('h1#name'){expect(page).to have_content 'Guilherme'}
@@ -125,6 +135,15 @@ feature 'Employee see applied job seekers' do
       expect(page).to have_content 'Currículo'
       expect(page).to have_content 'Experiêcia com desenvolvimento de software.'
     end
+    within('h1#header'){expect(page).to have_content 'Vagas que está concorrendo'}
+    within('div.jobs#informations') do
+      expect(page).to have_content 'Título: ', count: 2
+      expect(page).to have_link 'Desenvolvedor Ruby', href: employees_company_job_path(company, first_job)
+      expect(page).to have_content 'Nível: júnior'
+      expect(page).to have_link 'Analista de software', href: employees_company_job_path(company, second_job)
+      expect(page).to have_content 'Nível: júnior'      
+    end
+
     expect(page).to have_link 'Voltar', href: employees_company_job_seekers_path(company)    
   end
 end
