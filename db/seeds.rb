@@ -10,7 +10,7 @@ companies = Company.create!([{name: 'Campus Code', cnpj: '33.222.111/0050-46',
                              {
                               name: 'Rebase', cnpj: '44.333.222/0200-50',
                               site: 'https://www.rebase.com.br/',
-                              company_history:'Evoluiu a cada dia',
+                              company_history:'Evoluíu a cada dia',
                               employees: [employees[2], employees[3]]}])
 
 company_social_webs = CompanySocialWeb.create!([{company:companies[0], address_web:'http://www.linkedin.com/school/campus-code/'},
@@ -24,7 +24,11 @@ company_address = CompanyAddress.create!([{company:companies[0], public_place: '
                                           {company:companies[1], public_place: 'Rua Albertino, 90',
                                            district: 'Itaim', city: 'São Paulo',
                                            zip_code: '39415-245'}])
+companies[0].company_picture.attach(io: File.open(
+                                   'app/assets/images/logomarcas/campuscode.png'), filename: 'campuscode.png')
 
+companies[1].company_picture.attach(io: File.open(
+                                        'app/assets/images/logomarcas/rebase.png'), filename: 'rebase.png')
 
 levels = Level.create!([{name: 'júnior'}, {name: 'pleno'}, {name: 'sênior'}])
 

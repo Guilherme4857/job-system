@@ -47,12 +47,13 @@ Rakefile
 babel.config.js
 package.json
 postcss.config.js
+LICENSE
 
 #igonore some directory
 vendor/
 app/assets/config/*
 app/javascript/*
-app/assets/images/logomarcas/*
+#app/assets/images/logomarcas/*
 config/webpack/*
 bin/
 lib/
