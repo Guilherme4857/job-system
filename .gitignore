@@ -53,7 +53,7 @@ LICENSE
 vendor/
 app/assets/config/*
 app/javascript/*
-#app/assets/images/logomarcas/*
+app/assets/images/logomarcas/*
 config/webpack/*
 bin/
 lib/
