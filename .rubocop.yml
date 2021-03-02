@@ -1,0 +1,58 @@
+inherit_from: .rubocop_todo.yml
+
+require:
+  - rubocop-rails
+
+AllCops:
+ TargetRubyVersion: 2.7.2
+ Exclude:
+   - 'app/assets/***/**/*'
+   - 'app/channels/**/*'
+   - 'app/helpers/*'
+   - 'app/javascript/**/*'
+   - 'app/jobs/*'
+   - 'app/mailers/*'
+   - 'app/models/concerns/*'
+   - 'bin/*'
+   - 'config/**/*'
+   - 'db/**/*'
+   - 'lib/**/*'
+   - 'log/**/*'
+   - 'node_modules/***/**/*'
+   - 'public/***/**/*'
+   - 'spec/rails_helper.rb'
+   - 'spec/spec_helper.rb'
+   - 'storage/***/**/*'
+   - 'tmp/****/***/**/*'
+   - 'vendor/**/*'
+   - '.browserslistrc'
+   - '.gitattributes'
+   - '.gitignore'
+   - '.rspec'
+   - '.ruby-version'
+   - 'babel.config.js'
+   - 'config.ru'
+   - 'Gemfile'
+   - 'Gemfile.lock'
+   - 'LICENSE'
+   - 'package.json'
+   - 'Rakefile'
+   - 'README.md'
+   - 'rspec.txt'
+   - 'testdisk.log'
+   - 'yarn.lock'
+
+Documentation:
+ Enabled: false
+
+Style/FrozenStringLiteralComment:
+ Enabled: false
+
+Metrics/BlockLength:
+ ExcludedMethods: ['describe', 'context', 'feature', 'scenario', 'let']
+
+Metrics/LineLength:
+  Max: 80
+
+AsciiComments:
+  Enabled: false

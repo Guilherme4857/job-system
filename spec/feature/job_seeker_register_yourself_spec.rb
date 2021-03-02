@@ -8,7 +8,9 @@ feature 'Job seeker register yourself' do
     click_on 'Inscrever-se'
 
     expect(current_path).to eq new_job_seeker_registration_path
-    within('h2'){expect(page).to have_content 'Formulário de inscrição para se candidatar'}
+    within('h2') do 
+      expect(page).to have_content 'Formulário de inscrição para se candidatar'
+    end
     within('form') do
       expect(page).to have_content 'E-mail'
       expect(page).to have_content 'Senha'

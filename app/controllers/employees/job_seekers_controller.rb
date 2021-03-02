@@ -1,9 +1,11 @@
 class Employees::JobSeekersController < ApplicationController
-  before_action :authenticate_employee!, :job_seeker_attributes_names, :models_names,
-                :job_attributes_names
+  before_action :authenticate_employee!, :job_seeker_attributes_names, 
+                :models_names, :job_attributes_names
   
   def index
-    @applied_job_seekers = JobSeeker.all_applied_job_seekers(current_employee.company)
+    @applied_job_seekers = JobSeeker.all_applied_job_seekers(
+      current_employee.company
+    )
     
   end
 
@@ -14,7 +16,10 @@ class Employees::JobSeekersController < ApplicationController
   private
   def models_names
     @job_seeker_model_name = JobSeeker.model_name.human(
-                             count: JobSeeker.all_applied_job_seekers(current_employee.company))
+      count: JobSeeker.all_applied_job_seekers(
+        current_employee.company
+      )
+    )
   end
 
   def company

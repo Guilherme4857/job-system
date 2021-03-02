@@ -2,19 +2,27 @@ require 'rails_helper'
 
 feature 'Employer admin register company' do  
   scenario 'successfully' do
-    employee =  Employee.create!(email: 'henrique@campuscode.com.br', password: '123456')  
+    employee =  Employee.create!(
+      email: 'henrique@campuscode.com.br', password: '123456'
+    )  
     login_as employee, scope: :employee
-    company = {name: 'Campus Code', cnpj: '33.222.111/0050-46', 
-               site: 'http://www.campuscode.com.br', company_history: 'Vem crescendo bastante', 
-               linkedin:'http://www.linkedin.com/school/campus-code/', facebook: 'http://www.facebook.com/CampusCodeBr/', 
-               twitter: 'http://www.twitter.com/campuscodebr', company_address: {public_place: 'Rua Cícero, 41', 
-               district: 'Anhembi', city: 'São Paulo', zip_code: '41002-241'}}
-
+    company = {
+      name: 'Campus Code', cnpj: '33.222.111/0050-46', 
+      site: 'http://www.campuscode.com.br',
+      company_history: 'Vem crescendo bastante', 
+      linkedin:'http://www.linkedin.com/school/campus-code/',
+      facebook: 'http://www.facebook.com/CampusCodeBr/', 
+      twitter: 'http://www.twitter.com/campuscodebr',
+      company_address: {public_place: 'Rua Cícero, 41', 
+      district: 'Anhembi', city: 'São Paulo', zip_code: '41002-241'}
+    }
     
     visit new_employees_company_path
     within('form') do
       fill_in 'Nome', with: company[:name]
-      attach_file 'Logomarca', Rails.root.join('app', 'assets','images', 'logomarcas', 'campuscode.png')
+      attach_file 'Logomarca', Rails.root.join(
+        'app', 'assets','images', 'logomarcas', 'campuscode.png'
+      )
       fill_in 'CNPJ', with: company[:cnpj]
       fill_in 'Site', with: company[:site]
       fill_in 'História da Empresa', with: company[:company_history]
@@ -32,8 +40,10 @@ feature 'Employer admin register company' do
     expect(current_path).to eq employees_company_path(Company.last)
     expect(page).to have_css('img[src*="campuscode.png"]')
     within('h1#name'){expect(page).to have_content 'Campus Code'}
-    expect(page).to have_link 'Anuncie sua vaga', href: new_employees_company_job_path(Company.last)
-    expect(page).to have_link 'Suas vagas anunciadas', href: employees_company_jobs_path(Company.last)
+    expect(page).to have_link 'Anuncie sua vaga', 
+                              href: new_employees_company_job_path(Company.last)
+    expect(page).to have_link 'Suas vagas anunciadas', 
+                              href: employees_company_jobs_path(Company.last)
     within('h2#header'){expect(page).to have_content 'Informações'}
     within('div#info') do
       expect(page).to have_content 'CNPJ: 33.222.111/0050-46'

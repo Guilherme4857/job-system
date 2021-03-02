@@ -11,22 +11,20 @@ class Employees::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-
-    @employee = Employee.new(params.require(:employee).permit(:email, :password))
+    @employee = Employee.new(employee_params)
     if @employee.save
       if not @employee.company?
         sign_in @employee, scope: :employee        
         @employee.admin!
-        redirect_to new_employees_company_path, notice: 'Bem vindo! Você realizou
-                                               seu registro com sucesso.'
+        redirect_to_new_company(new_employees_company_path)
       else
         sign_in @employee, scope: :employee
         hostname = current_employee.separe_hostname
-        company_employee = CompanyEmployee.create!(company: company_from_hostname(hostname), employee: current_employee, 
-                                                   hostname: hostname)
-
-        redirect_to employees_root_path, notice: 'Bem vindo! Você realizou
-                                                  seu registro com sucesso.'
+        company_employee = CompanyEmployee.create!(
+          company: company_from_hostname(hostname), employee: current_employee, 
+          hostname: hostname
+        )
+        redirect_to_employee_root(employees_root_path) 
       end
     else
       render 'new'
@@ -84,5 +82,19 @@ class Employees::RegistrationsController < Devise::RegistrationsController
     companies.each do |company|
       return company if company.company_employees.first.hostname == name
     end
+  end
+
+  def employee_params
+    params.require(:employee).permit(:email, :password)
+  end
+  
+  def redirect_to_new_company(company)
+    redirect_to company, notice: 'Bem vindo! Você realizou
+                                 seu registro com sucesso.'
+  end
+
+  def redirect_to_employee_root(employee)
+    redirect_to employee, notice: 'Bem vindo! Você realizou
+                                  seu registro com sucesso.'
   end
 end

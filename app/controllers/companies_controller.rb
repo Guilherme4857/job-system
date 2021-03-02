@@ -9,8 +9,9 @@ class CompaniesController < ApplicationController
   private
 
   def models_name(company)
-    @company_social_webs = CompanySocialWeb.model_name.human(count:
-                                            company.company_social_webs.all.count)
+    @company_social_webs = CompanySocialWeb.model_name.human(
+      count:company.company_social_webs.all.count
+    )
     @company_address = CompanyAddress.model_name.human 
   end
 

@@ -19,7 +19,9 @@ class JobSeeker < ApplicationRecord
       if (AppliedJobSeeker.pluck(:job_seeker_id).include? id) && 
          (AppliedJobSeeker.pluck(:job_id).include? job.id)
 
-        AppliedJobSeeker.all.each{|ajs|return true if (ajs.job_seeker == self) && (ajs.job == job)}
+        AppliedJobSeeker.all.each do |ajs|
+          return true if (ajs.job_seeker == self) && (ajs.job == job)
+        end
         false
       else
         false
@@ -30,13 +32,21 @@ class JobSeeker < ApplicationRecord
   end
 
   def unapply_to!(job)
-    AppliedJobSeeker.all.each{|ajs|ajs.destroy if (ajs.job_seeker == self) && (ajs.job == job)}
+    AppliedJobSeeker.all.each do |ajs|
+      ajs.destroy if (ajs.job_seeker == self) && (ajs.job == job)
+    end
   end
 
   def self.all_applied_job_seekers(company)
     applied_job_seekers = []
-    all.each{|job_seeker|job_seeker.jobs.each{|job|
-    applied_job_seekers << job_seeker if (job.company == company) && (not applied_job_seekers.include? job_seeker)}}
+    all.each do |job_seeker|
+      job_seeker.jobs.each do |job|
+        if (job.company == company) && 
+           (not applied_job_seekers.include? job_seeker)
+          applied_job_seekers << job_seeker
+        end
+      end
+    end
     applied_job_seekers
   end
 end

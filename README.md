@@ -39,10 +39,16 @@ pessoas possam procurar por elas.
 :heavy_check_mark: Ruby: versão 2.7.2 <br>
 :heavy_check_mark: [node.js](https://github.com/nodesource/distributions/blob/master/README.md): versão 10.19.0 <br>
 :heavy_check_mark: [yarn](https://classic.yarnpkg.com/en/docs/usage): versão 1.22.5 <br>
-:heavy_check_mark: [rspec](rspec/rspec-rails): versão 4.0.2 <br>
-:heavy_check_mark: [capybara](teamcapybara/capybara) <br>
 
 Para instalar os pré-requisitos basta seguir as informações de documentação delas.
+
+<h2>Dependências
+
+:heavy_check_mark: [rspec-rails](https://github.com/rspec/rspec-rails): versão 4.0.2 <br>
+:heavy_check_mark: [capybara](https://github.com/teamcapybara/capybara) <br>
+:heavy_check_mark: [devise](https://github.com/heartcombo/devise)<br>
+:heavy_check_mark: [rubocop](https://github.com/teamcapybara/capybara)<br>
+
 
 <h2>Como rodar a aplicação</h2>
 

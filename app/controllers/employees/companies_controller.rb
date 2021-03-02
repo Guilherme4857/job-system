@@ -1,5 +1,7 @@
 class Employees::CompaniesController < ApplicationController 
-  before_action :authenticate_employee!, :company_attributes_names, :company_address_attributes 
+  before_action :authenticate_employee!, 
+                :company_attributes_names, 
+                :company_address_attributes 
   
   def show
     models_names
@@ -17,8 +19,10 @@ class Employees::CompaniesController < ApplicationController
     @company = Company.new(company_params)
     
     if @company.save
-      company_employee = CompanyEmployee.create!(company: @company, employee: current_employee, 
-                                                 hostname: current_employee.separe_hostname)
+      company_employee = CompanyEmployee.create!(
+        company: @company, employee: current_employee, 
+        hostname: current_employee.separe_hostname
+      )
 
       redirect_to employees_company_path(@company)
     else
@@ -31,15 +35,18 @@ class Employees::CompaniesController < ApplicationController
   private
 
   def company_params
-    company = params.require(:company).permit(:name, :company_picture, :cnpj, :site, :company_history, 
-                                              company_address_attributes:%i[id public_place 
-                                              district city zip_code], company_social_webs_attributes:%i[id address_web])
+    company = params.require(:company).permit(
+      :name, :company_picture, :cnpj, :site, :company_history, 
+      company_address_attributes:%i[id public_place 
+      district city zip_code], company_social_webs_attributes:%i[id address_web]
+    )
   end
 
   def models_names
     @address = CompanyAddress.model_name.human
     @social_webs = CompanySocialWeb.model_name.human(
-                                    count: current_employee.company.company_social_webs.count)
+      count: current_employee.company.company_social_webs.count
+    )
   end  
   
   def company_attributes_names

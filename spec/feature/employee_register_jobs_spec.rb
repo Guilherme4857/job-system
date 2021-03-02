@@ -2,12 +2,16 @@ require 'rails_helper'
 
 feature 'Employer register jobs' do
   scenario 'from root path' do
-    employee = Employee.create!(email: 'joao@campuscode.com', password: '123456')
+    employee = Employee.create!(email: 'joao@campuscode.com', 
+password: '123456')
     login_as employee, scope: :employee
     company = Company.create!(name: 'Campus Code', cnpj: '33.222.111/0050-46', 
-                              site: 'campuscode.com.br', company_history: 'Vem crescendo bastante')    
-    address = CompanyAddress.create!(company: company, public_place: 'Rua Cícero, 41', 
-                                     district: 'Anhembi', city: 'São Paulo', zip_code: '41002-241')
+                              site: 'campuscode.com.br',
+                              company_history: 'Vem crescendo bastante')    
+    address = CompanyAddress.create!(company: company,
+                                     public_place: 'Rua Cícero, 41', 
+                                     district: 'Anhembi', city: 'São Paulo',
+                                     zip_code: '41002-241')
     employee.company = company
 
     visit employees_root_path
@@ -15,19 +19,26 @@ feature 'Employer register jobs' do
     click_on 'Anuncie sua vaga'
 
     expect(current_path).to eq new_employees_company_job_path(company)
-    within('h1'){expect(page).to have_content "Preencha todos os campos a seguir"}
+    within('h1') do
+      expect(page).to have_content "Preencha todos os campos a seguir"
+    end    
   end
 
   scenario 'successfully' do
-    employee = Employee.create!(email: 'joao@campuscode.com', password: '123456')
+    employee = Employee.create!(email: 'joao@campuscode.com', 
+                                password: '123456')
     login_as employee, scope: :employee
-    job = {title: 'Desenvolvedor Ruby', description: 'Vai desenvolver aplicações utilizando ruby',
-          pay_scale: 'R$2000 - R$2600' , requirements: 'Saber ruby',
-          expiration_date: '23/04/2024',job_openings: 4}
+    job = {title: 'Desenvolvedor Ruby', 
+           description: 'Vai desenvolver aplicações utilizando ruby',
+           pay_scale: 'R$2000 - R$2600' , requirements: 'Saber ruby',
+           expiration_date: '23/04/2024',job_openings: 4}
     company = Company.create!(name: 'Campus Code', cnpj: '33.222.111/0050-46', 
-                              site: 'campuscode.com.br', company_history: 'Vem crescendo bastante')    
-    address = CompanyAddress.create!(company: company, public_place: 'Rua Cícero, 41', 
-                                     district: 'Anhembi', city: 'São Paulo', zip_code: '41002-241')
+                              site: 'campuscode.com.br',
+                              company_history: 'Vem crescendo bastante')    
+    address = CompanyAddress.create!(company: company,
+                                     public_place: 'Rua Cícero, 41', 
+                                     district: 'Anhembi', city: 'São Paulo', 
+                                     zip_code: '41002-241')
     employee.company = company
     Level.create!(name: 'júnior')
     Level.create!(name: 'pleno')
@@ -49,7 +60,9 @@ feature 'Employer register jobs' do
     within('h1'){expect(page).to have_content 'Campus Code'}
     within('div#job') do
       expect(page).to have_content "Título: Desenvolvedor Ruby"
-      expect(page).to have_content "Descrição Detalhada: Vai desenvolver aplicações utilizando ruby"
+      expect(page).to have_content(
+        "Descrição Detalhada: Vai desenvolver aplicações utilizando ruby"
+      )
       expect(page).to have_content "Nível: júnior"
       expect(page).to have_content "Requisitos Obrigatórios: Saber ruby"
       expect(page).to have_content "Total de Vagas: 4"
@@ -58,19 +71,25 @@ feature 'Employer register jobs' do
       expect(page).to have_link 'Deletar Vaga'
       expect(page).to have_link 'Editar Vaga'      
     end
-    expect(page).to have_link "Voltar", href: employees_company_jobs_path(company)
+    expect(page).to have_link "Voltar", 
+                              href: employees_company_jobs_path(company)
   end
 
   scenario 'and must fill all gaps' do
-    employee = Employee.create!(email: 'joao@campuscode.com', password: '123456')
+    employee = Employee.create!(email: 'joao@campuscode.com', 
+password: '123456')
     login_as employee, scope: :employee
-    job = {title: 'Desenvolvedor Ruby', description: 'Vai desenvolver aplicações utilizando ruby',
-          pay_scale: 'R$2000 - R$2600' , requirements: 'Saber ruby',
-          expiration_date: '23/04/2024',job_openings: 4}
+    job = {title: 'Desenvolvedor Ruby',
+           description: 'Vai desenvolver aplicações utilizando ruby',
+           pay_scale: 'R$2000 - R$2600' , requirements: 'Saber ruby',
+           expiration_date: '23/04/2024',job_openings: 4}
     company = Company.create!(name: 'Campus Code', cnpj: '33.222.111/0050-46', 
-                              site: 'campuscode.com.br', company_history: 'Vem crescendo bastante')    
-    address = CompanyAddress.create!(company: company, public_place: 'Rua Cícero, 41', 
-                                     district: 'Anhembi', city: 'São Paulo', zip_code: '41002-241')
+                              site: 'campuscode.com.br',
+                              company_history: 'Vem crescendo bastante')    
+    address = CompanyAddress.create!(company: company,
+                                     public_place: 'Rua Cícero, 41', 
+                                     district: 'Anhembi', city: 'São Paulo',
+                                     zip_code: '41002-241')
     employee.company = company
     Level.create!(name: 'júnior')
     Level.create!(name: 'pleno')
@@ -90,7 +109,9 @@ feature 'Employer register jobs' do
     expect(current_path).to eq employees_company_jobs_path(company)
     expect(page).to have_content 'Título não pode ficar em branco'
     expect(page).to have_content "Descrição Detalhada não pode ficar em branco"
-    expect(page).to have_content "Requisitos Obrigatórios não pode ficar em branco"
+    expect(page).to have_content(
+      "Requisitos Obrigatórios não pode ficar em branco"
+    )
     expect(page).to have_content "Total de Vagas não pode ficar em branco"
     expect(page).to have_content "Data Limite não pode ficar em branco"
     expect(page).to have_content "Faixa Salarial não pode ficar em branco"

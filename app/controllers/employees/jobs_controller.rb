@@ -68,9 +68,11 @@ class Employees::JobsController < ApplicationController
   end
 
   def job_params
-    job = params.require(:job).permit(:company_id, :title, :description, :pay_scale, 
-                                      :requirements, :expiration_date, 
-                                      :job_openings, :level_ids)
+    job = params.require(:job).permit(
+      :company_id, :title, :description, :pay_scale, 
+      :requirements, :expiration_date, 
+      :job_openings, :level_ids
+    )
   end
   
   def find_company
