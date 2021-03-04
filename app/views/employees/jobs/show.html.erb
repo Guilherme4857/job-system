@@ -23,7 +23,8 @@ data:{confirm: "Tem certeza que quer apagar?"}%>
 <% if @job.disabled?%>
   <%=link_to 'Ativar Vaga', job_enable_employees_job_path(@job), method: :post%> 
 <% else %>
-  <%=link_to 'Desativar Vaga', job_disable_employees_job_path(@job), method: :post%> 
+  <%=link_to 'Desativar Vaga', job_disable_employees_job_path(@job), method: :post,
+  data: {confirm: 'Tem certeza que quer deletar a vaga?'}%> 
 <% end %>
 </div>
 

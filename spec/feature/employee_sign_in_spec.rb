@@ -1,15 +1,17 @@
 require 'rails_helper'
 
 feature 'Employer sign in' do
-  scenario 'sign in' do
+  scenario 'succesfully' do
     employee = Employee.create!(
-      email: 'joao@campuscode.com', password: '654321'
+      email: 'joao@campuscode.com.br', password: '654321'
     )
     company = Company.create!(
       name: 'Campus Code', cnpj: '33.222.111/0050-46', 
       site: 'campuscode.com.br', company_history: 'Vem crescendo bastante'
     )    
-    employee.company = company
+    CompanyEmployee.create!(company: company,
+                            employee: employee,
+                            hostname: '@campuscode.com.br')
 
     visit root_path
     click_on 'Entrar como funcionário de empresa'
@@ -32,9 +34,15 @@ end
 
   scenario 'sing out' do
     employee = Employee.create!(
-      email: 'joao@campuscode.com', password: '123456'
+      email: 'joao@campuscode.com.br', password: '123456'
     )
-    
+    company = Company.create!(
+      name: 'Campus Code', cnpj: '33.222.111/0050-46', 
+      site: 'campuscode.com.br', company_history: 'Vem crescendo bastante'
+    )    
+    CompanyEmployee.create!(company: company,
+                            employee: employee,
+                            hostname: '@campuscode.com.br')
     login_as employee, scope: :employee
 
     visit root_path

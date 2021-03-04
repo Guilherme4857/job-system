@@ -5,13 +5,16 @@ employees = Employee.create!([{email: 'joao@campuscode.com.br', password: '12345
 
 companies = Company.create!([{name: 'Campus Code', cnpj: '33.222.111/0050-46',
                               site: 'http://www.campuscode.com.br',
-                              company_history: 'Vem crescendo bastante',
-                              employees: [employees[0], employees[1]]},
+                              company_history: 'Vem crescendo bastante'},
                              {
                               name: 'Rebase', cnpj: '44.333.222/0200-50',
                               site: 'https://www.rebase.com.br/',
-                              company_history:'Evoluíu a cada dia',
-                              employees: [employees[2], employees[3]]}])
+                              company_history:'Evoluíu a cada dia'}])
+
+CompanyEmployee.create!([{company: companies[0], employee: employees[0], hostname: '@campuscode.com.br'},
+                         {company: companies[0], employee: employees[1], hostname: '@campuscode.com.br'},
+                         {company: companies[1], employee: employees[2], hostname: '@rebase.com.br'},
+                         {company: companies[1], employee: employees[3], hostname: '@rebase.com.br'}])
 
 company_social_webs = CompanySocialWeb.create!([{company:companies[0], address_web:'http://www.linkedin.com/school/campus-code/'},
                                                 {company:companies[0], address_web: 'http://www.facebook.com/CampusCodeBr/'},

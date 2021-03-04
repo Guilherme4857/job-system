@@ -33,8 +33,7 @@ feature 'Employer admin register company' do
       fill_in 'Bairro', with: company[:company_address][:district]
       fill_in 'Cidade', with: company[:company_address][:city]
       fill_in 'CEP', with: company[:company_address][:zip_code]
-      click_on 'Criar Empresa'
-        
+      click_on 'Criar Empresa'        
     end
 
     expect(current_path).to eq employees_company_path(Company.last)
@@ -60,5 +59,8 @@ feature 'Employer admin register company' do
       expect(page).to have_content 'Vem crescendo bastante'
     end
     expect(page).to have_link 'Voltar', href: employees_root_path
+  end
+  
+  xscenario 'validação' do 
   end
 end

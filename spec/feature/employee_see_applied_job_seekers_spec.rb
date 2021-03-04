@@ -5,9 +5,11 @@ feature 'Employee see applied job seekers' do
     employee =  Employee.create!(
       email: 'henrique@campuscode.com.br', password: '123456'
     )  
+    login_as employee, scope: :employee
     company = Company.create!(
       name: 'Campus Code', cnpj: '33.222.111/0050-46', 
-      site: 'campuscode.com.br', company_history: 'Vem crescendo bastante'
+      site: 'http://www.campuscode.com.br',
+      company_history: 'Vem crescendo bastante'
     )    
     social_web_one = CompanySocialWeb.create!(
       company: company, 
@@ -25,8 +27,9 @@ feature 'Employee see applied job seekers' do
       company: company, public_place: 'Rua Cícero, 41', 
       district: 'Anhembi', city: 'São Paulo', zip_code: '41002-241'
     )
-    employee.company = company
-    login_as employee, scope: :employee
+    CompanyEmployee.create!(company: company, 
+                            employee: employee, 
+                            hostname: '@campuscode.com.br')
 
     visit employees_root_path
     click_on 'Ver sua empresa'
@@ -43,17 +46,12 @@ feature 'Employee see applied job seekers' do
     employee =  Employee.create!(
       email: 'henrique@campuscode.com.br', password: '123456'
     )  
+    login_as employee, scope: :employee
     company = Company.create!(
       name: 'Campus Code', cnpj: '33.222.111/0050-46', 
-      site: 'campuscode.com.br', company_history: 'Vem crescendo bastante'
+      site: 'http://www.campuscode.com.br', 
+      company_history: 'Vem crescendo bastante'
     )    
-    level = Level.create!(name: 'júnior')
-    job = Job.create!(
-      company: company, title: 'Desenvolvedor Ruby', 
-      description: 'Vai desenvolver aplicações utilizando ruby',
-      pay_scale: 'R$2000 - R$2600' , requirements: 'Saber ruby', 
-      expiration_date: '23/04/2024',job_openings: 4, levels:[level]
-    )
     social_web_one = CompanySocialWeb.create!(
       company: company, 
       address_web: 'http://www.linkedin.com/school/campus-code/'
@@ -69,6 +67,16 @@ feature 'Employee see applied job seekers' do
     address = CompanyAddress.create!(
       company: company, public_place: 'Rua Cícero, 41', 
       district: 'Anhembi', city: 'São Paulo', zip_code: '41002-241'
+    )
+    CompanyEmployee.create!(company: company, 
+                            employee: employee, 
+                            hostname: '@campuscode.com.br')
+    level = Level.create!(name: 'júnior')
+    job = Job.create!(
+      company: company, title: 'Desenvolvedor Ruby', 
+      description: 'Vai desenvolver aplicações utilizando ruby',
+      pay_scale: 'R$2000 - R$2600' , requirements: 'Saber ruby', 
+      expiration_date: '23/04/2024',job_openings: 4, levels:[level]
     )
     first_job_seeker = JobSeeker.create!(
       email: 'guilherme@gmail.com', password: '123456',
@@ -90,15 +98,13 @@ feature 'Employee see applied job seekers' do
     )
     first_job_seeker.apply_to!(job)
     third_job_seeker.apply_to!(job)
-    employee.company = company
-    login_as employee, scope: :employee
+    first_job_seeker.reload
+    third_job_seeker.reload
 
     visit employees_root_path
     click_on 'Ver sua empresa'
     click_on 'Candidaturas às vagas'
     
-    first_job_seeker.reload
-    third_job_seeker.reload
     expect(current_path).to eq employees_company_job_seekers_path(company)
     within('h1#header'){expect(page).to have_content 'Candidatos'}
     within('div#body') do
@@ -126,10 +132,28 @@ feature 'Employee see applied job seekers' do
     employee =  Employee.create!(
       email: 'henrique@campuscode.com.br', password: '123456'
     )  
+    login_as employee, scope: :employee
     company = Company.create!(
       name: 'Campus Code', cnpj: '33.222.111/0050-46', 
       site: 'campuscode.com.br', company_history: 'Vem crescendo bastante'
     )    
+    social_web_one = CompanySocialWeb.create!(
+      company: company, 
+      address_web: 'http://www.linkedin.com/school/campus-code/'
+    )
+    social_web_two = CompanySocialWeb.create!(
+      company: company, 
+      address_web: 'http://www.facebook.com/CampusCodeBr/'
+    ) 
+    social_web_three = CompanySocialWeb.create!(
+      company: company, 
+      address_web:'http://www.twitter.com/campuscodebr'
+    )
+    address = CompanyAddress.create!(
+      company: company, public_place: 'Rua Cícero, 41', 
+      district: 'Anhembi', city: 'São Paulo', zip_code: '41002-241'
+    )
+    employee.company = company
     level = Level.create!(name: 'júnior')
     first_job = Job.create!(
       company: company, title: 'Desenvolvedor Ruby', 
@@ -149,36 +173,20 @@ feature 'Employee see applied job seekers' do
       pay_scale: 'R$2000 - R$2600' , requirements: 'Saber C#', 
       expiration_date: '23/03/2030',job_openings: 4, levels:[level]
     )
-    social_web_one = CompanySocialWeb.create!(
-      company: company, 
-      address_web: 'http://www.linkedin.com/school/campus-code/'
-    )
-    social_web_two = CompanySocialWeb.create!(
-      company: company, 
-      address_web: 'http://www.facebook.com/CampusCodeBr/'
-    ) 
-    social_web_three = CompanySocialWeb.create!(
-      company: company, 
-      address_web:'http://www.twitter.com/campuscodebr'
-    )
-    address = CompanyAddress.create!(
-      company: company, public_place: 'Rua Cícero, 41', 
-      district: 'Anhembi', city: 'São Paulo', zip_code: '41002-241'
-    )
     job_seeker = JobSeeker.create!(
       email: 'guilherme@gmail.com', password: '123456',
       social_name: 'Guilherme', cpf:'22.333.444/5', 
       phone: '+55 11 98904-8658', 
       cv: 'Experiêcia com desenvolvimento de software.'
     )
+    job_seeker.profile_picture.attach(
+      io: File.open(
+        'app/assets/images/logomarcas/konduto.png'
+      ), filename: 'konduto.png'
+    )
     job_seeker.apply_to!(first_job)
     job_seeker.apply_to!(second_job)
     job_seeker.reload
-    employee.company = company
-    job_seeker.profile_picture.attach(io: File.open(
-      'app/assets/images/logomarcas/konduto.png'
-    ), filename: 'konduto.png')
-    login_as employee, scope: :employee
 
     visit employees_company_job_seekers_path(company)
     click_on 'Guilherme'

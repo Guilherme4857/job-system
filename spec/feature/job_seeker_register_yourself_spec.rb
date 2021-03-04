@@ -1,28 +1,6 @@
 require 'rails_helper'
 
-feature 'Job seeker register yourself' do
-  scenario 'since root path' do
-
-    visit root_path
-    click_on 'Entrar para candidatar-se'
-    click_on 'Inscrever-se'
-
-    expect(current_path).to eq new_job_seeker_registration_path
-    within('h2') do 
-      expect(page).to have_content 'Formulário de inscrição para se candidatar'
-    end
-    within('form') do
-      expect(page).to have_content 'E-mail'
-      expect(page).to have_content 'Senha'
-      expect(page).to have_content 'Nome Social'
-      expect(page).to have_content 'CPF'
-      expect(page).to have_content 'Telefone'
-      expect(page).to have_content 'Currículo'
-      expect(page).to have_button 'Inscrever-se'
-    end
-    expect(page).to have_link 'Entrar'
-  end
-  
+feature 'Job seeker register yourself' do  
   scenario 'successfully' do
     job_seeker = {email: 'guilherme@gmail.com', password: '123456',
                   social_name: 'Guilherme', cpf:'22.333.444/5', 
@@ -32,6 +10,7 @@ feature 'Job seeker register yourself' do
     visit root_path
     click_on 'Entrar para candidatar-se'
     click_on 'Inscrever-se'
+
     within('form') do
       fill_in 'E-mail', with: job_seeker[:email]
       fill_in 'Senha', with: job_seeker[:password]

@@ -1,21 +1,6 @@
 require 'rails_helper'
 
-feature 'Job Seeker sign in' do
-  scenario 'from root path' do
-    visit root_path
-    click_on 'Entrar para candidatar-se'
-
-    expect(current_path).to eq new_job_seeker_session_path
-    within('form') do
-      expect(page).to have_content 'E-mail'
-      expect(page).to have_content 'Senha'
-      expect(page).to have_content 'Lembre-se de mim'
-      expect(page).to have_button 'Entrar'
-    end
-    expect(page).to have_link 'Inscrever-se'
-    expect(page).to have_link 'Esqueceu sua senha?'
-  end
-
+feature 'Job Seeker sign in' do  
   scenario 'successfully' do
     job_seeker = JobSeeker.create!(
       email: 'guilherme@gmail.com',
@@ -26,7 +11,8 @@ feature 'Job Seeker sign in' do
       cv: 'Experiência em programar'
     )
 
-    visit new_job_seeker_session_path
+    visit root_path
+    click_on 'Entrar para candidatar-se'
 
     within('form') do
       fill_in 'E-mail', with: job_seeker.email

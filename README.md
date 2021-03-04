@@ -42,7 +42,7 @@ pessoas possam procurar por elas.
 
 Para instalar os pré-requisitos basta seguir as informações de documentação delas.
 
-<h2>Dependências
+<h2>Dependências</h2>
 
 :heavy_check_mark: [rspec-rails](https://github.com/rspec/rspec-rails): versão 4.0.2 <br>
 :heavy_check_mark: [capybara](https://github.com/teamcapybara/capybara) <br>

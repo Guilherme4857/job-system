@@ -2,6 +2,7 @@ class HomeController < ApplicationController
   before_action :job_attributes_names, :company_attributes_names
 
   def index  
+    redirect_to employees_root_path if employee_signed_in?
   end
 
   def search

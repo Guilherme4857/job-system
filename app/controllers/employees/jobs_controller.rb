@@ -1,11 +1,10 @@
 class Employees::JobsController < ApplicationController
-  before_action :authenticate_employee!, :enables, :job_attributes_names
+  before_action :authenticate_employee!, :enables,
+                :job_attributes_names, :model_name
   
   def index
     @company = find_company
     @jobs = @company.jobs
-    @level = Level.model_name.human
-    @opened = Job.model_name.human(count: Job.all)
   end
 
   def new
@@ -45,7 +44,7 @@ class Employees::JobsController < ApplicationController
   def destroy
     job = Job.find(params[:id])
     job.destroy
-    redirect_to employees_company_jobs_path current_employee.company, 
+    redirect_to employees_company_jobs_path(current_employee.company), 
     notice: 'Vaga deletada com sucesso'
   end
   
@@ -77,6 +76,10 @@ class Employees::JobsController < ApplicationController
   
   def find_company
     company = current_employee.company
+  end
+
+  def model_name
+    @opened = Job.model_name.human(count: Job.all)
   end
 
   def job_attributes_names
