@@ -48,7 +48,7 @@ Para instalar os pré-requisitos basta seguir as informações de documentação
 :heavy_check_mark: [capybara](https://github.com/teamcapybara/capybara) <br>
 :heavy_check_mark: [devise](https://github.com/heartcombo/devise)<br>
 :heavy_check_mark: [rubocop](https://github.com/teamcapybara/capybara)<br>
-
+:heavy_check_mark: [simplecov](https://github.com/simplecov-ruby/simplecov)<br>
 
 <h2>Como rodar a aplicação</h2>
 
