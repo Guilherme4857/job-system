@@ -8,7 +8,7 @@ class JobSeeker < ApplicationRecord
   has_one_attached :profile_picture
 
   validates :social_name, :cpf, :phone, :cv, presence: true
-  validates :cpf, :phone, uniqueness: true
+  validates :cpf, :phone, :cv, uniqueness: true
 
   def apply_to!(job)
     AppliedJobSeeker.create!(job_seeker: self, job: job)

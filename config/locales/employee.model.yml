@@ -6,6 +6,7 @@ pt-BR:
         other: Funcionários
     attributes:
       employee:
+        cpf: CPF
         confirmation_sent_at: Confirmação enviada em
         confirmation_token: Token de confirmação
         confirmed_at: Confirmado em

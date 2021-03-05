@@ -3,8 +3,10 @@ require 'rails_helper'
 feature 'Employer admin register company' do  
   scenario 'successfully' do
     employee =  Employee.create!(
-      email: 'henrique@campuscode.com.br', password: '123456'
+      email: 'henrique@campuscode.com.br', password: '123456',
+      cpf: '12.345.678/9'
     )  
+    employee.admin!
     login_as employee, scope: :employee
     company = {
       name: 'Campus Code', cnpj: '33.222.111/0050-46', 
@@ -61,6 +63,46 @@ feature 'Employer admin register company' do
     expect(page).to have_link 'Voltar', href: employees_root_path
   end
   
-  xscenario 'validação' do 
+  scenario 'with empty gaps' do 
+    employee =  Employee.create!(
+      email: 'henrique@campuscode.com.br', password: '123456',
+      cpf: '12.345.678/9'
+    )  
+    employee.admin!
+    login_as employee, scope: :employee
+    
+    visit new_employees_company_path
+    within('form') do
+      fill_in 'Nome', with: ''
+      fill_in 'CNPJ', with: ''
+      fill_in 'Site', with: ''
+      fill_in 'História da Empresa', with: ''
+      fill_in  'Rede Social 1', with: ''
+      fill_in  'Rede Social 2', with: ''
+      fill_in  'Rede Social 3', with: ''
+      fill_in 'Logradouro', with: ''
+      fill_in 'Bairro', with: ''
+      fill_in 'Cidade', with: ''
+      fill_in 'CEP', with: ''
+      click_on 'Criar Empresa'        
+    end
+
+    expect(page).to have_content(
+      'Endereço da rede social não pode ficar em branco'
+    )
+    expect(page).to have_content('Logradouro não pode ficar em branco')
+    expect(page).to have_content('Bairro não pode ficar em branco')
+    expect(page).to have_content('Cidade não pode ficar em branco')
+    expect(page).to have_content('CEP não pode ficar em branco')
+    expect(page).to have_content('Nome não pode ficar em branco')
+    expect(page).to have_content('CNPJ não pode ficar em branco')
+    expect(page).to have_content('Site não pode ficar em branco')
+    expect(page).to have_content('História da Empresa não pode ficar em branco')
+    expect(page).to have_content('Redes Sociais não é válido')
+    expect(page).to have_content('Endereço da Empresa não é válido')
+   
+  end
+
+  xscenario 'attributes must be uniqueness' do
   end
 end

@@ -1,3 +1,9 @@
+<% if @company.errors.any?%>
+  <% @company.errors.each do |error| %>
+    <dt><%=error.full_message%></dt> 
+  <% end %>
+<% end %>
+
 <h1>Formulário de Cadastro da Empresa</h1>
 
 <%=form_with model: [:employees, @company] do |f|%>
@@ -20,12 +26,12 @@
   <%=f.label :site%><br>
   <%=f.url_field :site%>
   </dt>
+  <%number = 0%>
   
   <%=f.fields_for :company_social_webs do |social_web|%>
     <br>
     <dt>
-    <%@number += 1%>
-    <%= social_web.label :address_web, "Rede Social #{@number}"%><br>
+    <%= social_web.label :address_web, "Rede Social #{number += 1}"%><br>
     <%= social_web.url_field :address_web%>
     </dt>
     

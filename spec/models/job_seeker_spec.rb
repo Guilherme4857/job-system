@@ -101,7 +101,8 @@ RSpec.describe JobSeeker, type: :model do
         second_job_seeker = JobSeeker.create!(
           email: 'bruna@yahoo.com', password: '123456', 
           social_name: 'Bruna', cpf: '44.333.222/1',
-          phone: '+55 11 93925-8796', cv: 'Experiência em programar'
+          phone: '+55 11 93925-8796',
+          cv: 'Experiência em desenvolvimento de software'
         )
         first_job_seeker.apply_to!(first_job)
         second_job_seeker.apply_to!(second_job)

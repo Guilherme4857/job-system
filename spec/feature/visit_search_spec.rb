@@ -1,8 +1,17 @@
 require 'rails_helper'
 
 feature 'Visit search' do
-  xscenario 'without results' do
-    
+  scenario 'without results' do
+    visit root_path
+    fill_in 'Busca:', with: 'Campus Code'
+    click_on 'Pesquisar'
+  
+    expect(current_path).to eq search_path
+    within('h1') { expect(page).to have_content 'Resultados de pesquisa' }
+    expect(page).to have_content 'Nenhum resultado encontrado'
+    within('div#root') do
+      expect(page).to have_link 'Voltar', href: root_path
+    end        
   end
 
   scenario 'for company' do

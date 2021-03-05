@@ -12,3 +12,7 @@ pt-BR:
         cnpj: CNPJ
         site: Site
         company_history: História da Empresa
+        company_social_webs: Redes Sociais
+        company_address: Endereço da Empresa
+      company_social_webs:
+        address_web: Endereço da rede social

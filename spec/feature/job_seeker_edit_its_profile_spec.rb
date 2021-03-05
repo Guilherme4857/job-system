@@ -44,6 +44,37 @@ feature 'Job seeker edit its profile' do
     expect(page).to have_link 'Voltar', href: root_path
   end
 
+  scenario 'with empty gaps' do
+    job_seeker = JobSeeker.create!(
+      email: 'guilherme@gmail.com', password: '123456',
+      social_name: 'Guilherme', cpf:'22.333.444/5', 
+      phone: '+55 11 98904-8658', 
+      cv: 'Experiêcia com desenvolvimento de software.'
+    )
+    login_as job_seeker, scope: :job_seeker
+    
+    visit root_path
+    click_on 'Guilherme'    
+    click_on 'Alterar informações'
+    
+    within('form') do
+      fill_in 'E-mail', with: ''
+      fill_in 'Nome Social', with: ''        
+      fill_in 'CPF', with: ''        
+      fill_in 'Telefone', with: ''        
+      fill_in 'Currículo', with: ''
+      click_on 'Atualizar Perfíl'
+    end
+
+    expect(page).to have_content 'Não foi possível salvar candidato: 5 erros'
+    expect(page).to have_content 'E-mail não pode ficar em branco'
+    expect(page).to have_content 'Nome Social não pode ficar em branco'
+    expect(page).to have_content 'CPF não pode ficar em branco'
+    expect(page).to have_content 'Telefone não pode ficar em branco'
+    expect(page).to have_content 'Currículo não pode ficar em branco'
+        
+  end
+
   scenario 'setting the picture' do
     job_seeker = JobSeeker.create!(
       email: 'guilherme@gmail.com', password: '123456',
@@ -177,9 +208,5 @@ feature 'Job seeker edit its profile' do
         href: edit_job_seeker_path(job_seeker))
     end
     expect(page).to have_link 'Voltar', href: root_path
-  end
-
-  xscenario 'validação' do
-    
   end
 end

@@ -19,8 +19,7 @@ Rails.application.routes.draw do
     delete 'destroy_profile_picture', on: :member
   end
 
-  devise_for :employees
-  
+  devise_for :employees  
   namespace 'employees' do
     root to: 'home#index'
     resources :companies, only: %i[show new create] do

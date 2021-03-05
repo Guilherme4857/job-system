@@ -12,7 +12,6 @@ class Employees::CompaniesController < ApplicationController
     @company = Company.new
     @company.build_company_address
     3.times {@company.company_social_webs.build}
-    @number = 0
   end
 
   def create

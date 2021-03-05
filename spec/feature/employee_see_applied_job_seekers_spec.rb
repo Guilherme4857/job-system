@@ -3,7 +3,8 @@ require 'rails_helper'
 feature 'Employee see applied job seekers' do
   scenario 'when has none' do
     employee =  Employee.create!(
-      email: 'henrique@campuscode.com.br', password: '123456'
+      email: 'henrique@campuscode.com.br', password: '123456',
+      cpf: '12.345.678/9'
     )  
     login_as employee, scope: :employee
     company = Company.create!(
@@ -44,7 +45,8 @@ feature 'Employee see applied job seekers' do
 
   scenario 'successfully' do
     employee =  Employee.create!(
-      email: 'henrique@campuscode.com.br', password: '123456'
+      email: 'henrique@campuscode.com.br', password: '123456',
+      cpf: '12.345.678/9'
     )  
     login_as employee, scope: :employee
     company = Company.create!(
@@ -94,7 +96,7 @@ feature 'Employee see applied job seekers' do
       email: 'vanessa@gmail.com', password: '123456', 
       social_name: 'Vanessa', cpf: '55.444.333/2',
       phone: '+55 11 99388-9300', 
-      cv: 'Experiência em programar'
+      cv: 'Experiência com desenvolvimento ruby'
     )
     first_job_seeker.apply_to!(job)
     third_job_seeker.apply_to!(job)
@@ -130,7 +132,8 @@ feature 'Employee see applied job seekers' do
 
   scenario 'detailed informations' do
     employee =  Employee.create!(
-      email: 'henrique@campuscode.com.br', password: '123456'
+      email: 'henrique@campuscode.com.br', password: '123456',
+      cpf: '12.345.678/9'
     )  
     login_as employee, scope: :employee
     company = Company.create!(

@@ -8,4 +8,13 @@ class Company < ApplicationRecord
   accepts_nested_attributes_for :company_address 
   accepts_nested_attributes_for :company_social_webs
 
+  validates :name, :cnpj, :site, :company_history, 
+            presence: true
+  
+  validates :name, :cnpj, :site, :company_history, 
+            uniqueness: true
+            
+  validates_associated :company_social_webs, :company_address,
+                       :employees
+
 end

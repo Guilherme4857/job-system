@@ -3,7 +3,8 @@ require 'rails_helper'
 feature 'Employee see app' do
   scenario 'root_path' do
     employee =  Employee.create!(
-      email: 'henrique@campuscode.com.br', password: '123456'
+      email: 'henrique@campuscode.com.br', password: '123456',
+      cpf: '12.345.678/9'
     )  
     login_as employee, scope: :employee
     company = Company.create!(
@@ -24,7 +25,8 @@ feature 'Employee see app' do
 
   scenario 'company informations' do
     employee =  Employee.create!(
-      email: 'henrique@campuscode.com.br', password: '123456'
+      email: 'henrique@campuscode.com.br', password: '123456',
+      cpf: '12.345.678/9'
     )  
     login_as employee, scope: :employee
     company = Company.create!(
@@ -91,7 +93,8 @@ feature 'Employee see app' do
 
   scenario 'company registered jobs' do
     employee =  Employee.create!(
-      email: 'henrique@campuscode.com.br', password: '123456'
+      email: 'henrique@campuscode.com.br', password: '123456',
+      cpf: '12.345.678/9'
     )  
     login_as employee, scope: :employee
     company = Company.create!(
@@ -142,7 +145,9 @@ feature 'Employee see app' do
 
   scenario 'details aboult registered job' do
     employee =  Employee.create!(
-      email: 'henrique@campuscode.com.br', password: '123456')  
+      email: 'henrique@campuscode.com.br', password: '123456',
+      cpf: '12.345.678/9'
+    )  
     login_as employee, scope: :employee
     company = Company.create!(
       name: 'Campus Code', cnpj: '33.222.111/0050-46', 
@@ -181,7 +186,8 @@ feature 'Employee see app' do
 
   scenario 'details aboult disable jobs' do
     employee =  Employee.create!(
-      email: 'henrique@campuscode.com.br', password: '123456'
+      email: 'henrique@campuscode.com.br', password: '123456',
+      cpf: '12.345.678/9'
     )  
     login_as employee, scope: :employee
     company = Company.create!(
@@ -220,7 +226,8 @@ feature 'Employee see app' do
 
   scenario 'without registered job' do
     employee =  Employee.create!(
-      email: 'henrique@campuscode.com.br', password: '123456'
+      email: 'henrique@campuscode.com.br', password: '123456',
+      cpf: '12.345.678/9'
     )  
     login_as employee, scope: :employee
     company = Company.create!(

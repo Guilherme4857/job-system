@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_26_194421) do
+ActiveRecord::Schema.define(version: 2021_03_05_094625) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -56,7 +56,6 @@ ActiveRecord::Schema.define(version: 2021_02_26_194421) do
     t.text "company_history"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["cnpj"], name: "index_companies_on_cnpj", unique: true
     t.index ["company_history"], name: "index_companies_on_company_history", unique: true
     t.index ["name"], name: "index_companies_on_name", unique: true
     t.index ["site"], name: "index_companies_on_site", unique: true
@@ -88,6 +87,7 @@ ActiveRecord::Schema.define(version: 2021_02_26_194421) do
     t.string "address_web"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["address_web"], name: "index_company_social_webs_on_address_web", unique: true
     t.index ["company_id"], name: "index_company_social_webs_on_company_id"
   end
 
@@ -97,9 +97,11 @@ ActiveRecord::Schema.define(version: 2021_02_26_194421) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.string "cpf"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "status", default: 0
+    t.index ["cpf"], name: "index_employees_on_cpf", unique: true
     t.index ["email"], name: "index_employees_on_email", unique: true
     t.index ["reset_password_token"], name: "index_employees_on_reset_password_token", unique: true
   end
@@ -132,7 +134,10 @@ ActiveRecord::Schema.define(version: 2021_02_26_194421) do
     t.text "cv"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["cpf"], name: "index_job_seekers_on_cpf", unique: true
+    t.index ["cv"], name: "index_job_seekers_on_cv", unique: true
     t.index ["email"], name: "index_job_seekers_on_email", unique: true
+    t.index ["phone"], name: "index_job_seekers_on_phone", unique: true
     t.index ["reset_password_token"], name: "index_job_seekers_on_reset_password_token", unique: true
   end
 

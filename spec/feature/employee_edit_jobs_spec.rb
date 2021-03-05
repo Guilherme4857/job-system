@@ -3,7 +3,8 @@ require 'rails_helper'
 feature 'Employer edit jobs' do
   scenario 'successfully' do
     employee = Employee.create!(email: 'joao@campuscode.com.br', 
-                                password: '123456')
+                                password: '123456',
+                                cpf: '12.345.678/9')
     login_as employee, scope: :employee
     company = Company.create!(
       name: 'Campus Code', cnpj: '33.222.111/0050-46', 
@@ -81,7 +82,8 @@ feature 'Employer edit jobs' do
 
   scenario "and can't let blank gaps" do
     employee = Employee.create!(email: 'joao@campuscode.com', 
-                                password: '123456')
+                                password: '123456',
+                                cpf: '12.345.678/9')
     login_as employee, scope: :employee
     company = Company.create!(name: 'Campus Code', cnpj: '33.222.111/0050-46', 
                               site: 'campuscode.com',

@@ -3,7 +3,8 @@ require 'rails_helper'
 feature 'Employee disable job' do
   scenario 'successfully' do
     employee = Employee.create!(email: 'joao@campuscode.com.br', 
-                                password: '123456')
+                                password: '123456',
+                                cpf: '12.345.678/9')
     login_as employee, scope: :employee
     company = Company.create!(name: 'Campus Code', cnpj: '33.222.111/0050-46', 
                               site: 'http://www.campuscode.com.br',
@@ -67,7 +68,8 @@ feature 'Employee disable job' do
 
   scenario 'and enable again' do
     employee = Employee.create!(email: 'joao@campuscode.com', 
-                                password: '123456')
+                                password: '123456',
+                                cpf: '12.345.678/9')
     login_as employee, scope: :employee
     company = Company.create!(
       name: 'Campus Code', cnpj: '33.222.111/0050-46', 
@@ -128,7 +130,8 @@ feature 'Employee disable job' do
 
   scenario 'for date' do
     employee = Employee.create!(
-      email: 'joao@campuscode.com', password: '123456'
+      email: 'joao@campuscode.com', password: '123456',
+      cpf: '12.345.678/9'
     )
     login_as employee, scope: :employee
     company = Company.create!(

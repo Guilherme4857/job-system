@@ -12,7 +12,8 @@ feature 'Visit see app' do
 
   scenario 'all enable jobs' do
     employee =  Employee.create!(
-      email: 'henrique@campuscode.com.br', password: '123456'
+      email: 'henrique@campuscode.com.br', password: '123456',
+      cpf: '12.345.678/9'
     )  
     first_company = Company.create!(
       name: 'Campus Code', cnpj: '33.222.111/0050-46', 
@@ -104,7 +105,8 @@ feature 'Visit see app' do
 
   scenario 'and company datails' do
     employee = Employee.create!(
-      email: 'joao@campuscode.com', password: '123456'
+      email: 'joao@campuscode.com', password: '123456',
+      cpf: '12.345.678/9'
     )
     company = Company.create!(
       name: 'Campus Code', cnpj: '33.222.111/0050-46', 

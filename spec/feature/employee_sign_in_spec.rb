@@ -3,7 +3,8 @@ require 'rails_helper'
 feature 'Employer sign in' do
   scenario 'succesfully' do
     employee = Employee.create!(
-      email: 'joao@campuscode.com.br', password: '654321'
+      email: 'joao@campuscode.com.br', password: '654321',
+      cpf: '12.345.678/9'
     )
     company = Company.create!(
       name: 'Campus Code', cnpj: '33.222.111/0050-46', 
@@ -34,7 +35,8 @@ end
 
   scenario 'sing out' do
     employee = Employee.create!(
-      email: 'joao@campuscode.com.br', password: '123456'
+      email: 'joao@campuscode.com.br', password: '123456',
+      cpf: '12.345.678/9'
     )
     company = Company.create!(
       name: 'Campus Code', cnpj: '33.222.111/0050-46', 

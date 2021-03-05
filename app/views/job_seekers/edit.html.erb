@@ -1,4 +1,13 @@
 <h1 class='Profile' id='edit'>Altere suas informações</h1>
+<% if @job_seeker.errors.any? %>
+  <h2>Não foi possível salvar candidato: 
+  <%=@job_seeker.errors.count%> erros</h2>
+  <%@job_seeker.errors.each do |error|%>
+    <ul>
+      <li><%=error.full_message%></li>
+    </ul>
+  <% end %>
+<% end %>
 
 <%=form_with model: @job_seeker do |f|%>
   <dt>

@@ -6,9 +6,11 @@ RSpec.describe Employee, type: :model do
       it 'successfully' do
         
         first_employee = Employee.create!(email: 'joao@campuscode.com.br', 
-                                          password: '123456')
+                                          password: '123456',
+                                          cpf: '12.345.678/9')
         second_employee =  Employee.create!(email: 'henrique@campuscode.com.br',
-                                            password: '123456')
+                                            password: '123456',
+                                            cpf: '41.329.876/5')
         company = Company.create!(name: 'Campus Code', 
                                   cnpj: '33.222.111/0050-46', 
                                   site: 'campuscode.com.br',
@@ -28,9 +30,11 @@ RSpec.describe Employee, type: :model do
   context '#separe_hostname' do
     it 'successfully' do
       first_employee = Employee.create!(email: 'joao@campuscode.com.br', 
-                                        password: '123456')
+                                        password: '123456',
+                                        cpf: '12.345.678/9')
       second_employee = Employee.create!(email: 'gilberto@google.com', 
-                                         password: '123456')
+                                         password: '123456',
+                                         cpf: '41.329.876/5')
       
       expect(first_employee.separe_hostname).to eq '@campuscode.com.br'
       expect(second_employee.separe_hostname).to eq '@google.com'
@@ -40,9 +44,11 @@ RSpec.describe Employee, type: :model do
   context '#exist_hostname?' do
     it 'successfully' do
       first_employee = Employee.create!(email: 'joao@campuscode.com.br', 
-                                        password: '123456')
+                                        password: '123456',
+                                        cpf: '12.345.678/9')
       second_employee = Employee.create!(email: 'gilberto@google.com', 
-                                         password: '123456')
+                                         password: '123456',
+                                         cpf: '41.329.876/5')
       
       company = Company.create!(name: 'Campus Code', 
                                 cnpj: '33.222.111/0050-46', 

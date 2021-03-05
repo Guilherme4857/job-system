@@ -8,7 +8,9 @@ class Employee < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   
-
+  validates :cpf, presence: true
+  validates :cpf, uniqueness: true
+  
   def company?
     if CompanyEmployee.any?
       if (CompanyEmployee.all.pluck(:hostname).include? separe_hostname) &&

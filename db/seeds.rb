@@ -1,7 +1,7 @@
-employees = Employee.create!([{email: 'joao@campuscode.com.br', password: '123456', status: 'admin'}, 
-                              {email: 'henrique@campuscode.com.br', password: '123456'},
-                              {email: 'leticia@rebase.com.br', password: '123456', status: 'admin'},
-                              {email: 'andre@rebase.com.br', password: '123456'}])
+employees = Employee.create!([{email: 'joao@campuscode.com.br', password: '123456', status: 'admin', cpf: '12.345.678/9'}, 
+                              {email: 'henrique@campuscode.com.br', password: '123456', cpf: '41.324.169/5'},
+                              {email: 'leticia@rebase.com.br', password: '123456', status: 'admin', cpf: '56.784.441/4'},
+                              {email: 'andre@rebase.com.br', password: '123456', cpf: '99.888.777/6'}])
 
 companies = Company.create!([{name: 'Campus Code', cnpj: '33.222.111/0050-46',
                               site: 'http://www.campuscode.com.br',
@@ -47,13 +47,13 @@ jobs = Job.create!([{company: companies[0], title: 'Desenvolvedor Ruby',
 
 job_seekers = JobSeeker.create!([{email: 'guilherme@gmail.com', password: '123456', 
                                    social_name: 'Guilherme', cpf: '33.222.111/4',
-                                   phone: '+55 11 989048658', cv: 'Experiência em programar'},
+                                   phone: '+55 11 989048658', cv: 'Experiência com python'},
                                   {email: 'bruna@yahoo.com', password: '123456', 
                                    social_name: 'Bruna', cpf: '44.333.222/1',
-                                   phone: '+55 11 93925-8796', cv: 'Experiência em programar'},
+                                   phone: '+55 11 93925-8796', cv: 'Experiência com ruby'},
                                   {email: 'vanessa@gmail.com', password: '123456', 
                                    social_name: 'Vanessa', cpf: '55.444.333/2',
-                                   phone: '+55 11 99388-9300', cv: 'Experiência em programar'},
+                                   phone: '+55 11 99388-9300', cv: 'Experiência com java'},
                                   {email: 'camilla@gmail.com', password: '123456', 
                                   social_name: 'Camilla', cpf: '66.555.444/3',
-                                  phone: '+55 19 94485-7601', cv: 'Experiência em programar'}])
+                                  phone: '+55 19 94485-7601', cv: 'Experiência com php'}])

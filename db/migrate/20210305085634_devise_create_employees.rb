@@ -32,12 +32,14 @@ class DeviseCreateEmployees < ActiveRecord::Migration[6.1]
       # t.string   :unlock_token # Only if unlock strategy is :email or :both
       # t.datetime :locked_at
 
+      t.string :cpf
 
       t.timestamps null: false
     end
 
     add_index :employees, :email,                unique: true
     add_index :employees, :reset_password_token, unique: true
+    add_index :employees, :cpf,                  unique: true
     # add_index :employees, :confirmation_token,   unique: true
     # add_index :employees, :unlock_token,         unique: true
   end
