@@ -25,7 +25,7 @@ feature 'Job seeker register yourself' do
     expect(current_path).to eq root_path
   end
 
-  xcenario 'and some informations must be uniqueness' do
+  xscenario 'and some informations must be uniqueness' do
     
   end
 end
